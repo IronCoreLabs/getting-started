@@ -145,6 +145,7 @@ class Scaffold {
 
             // if add has been implemented, reflect changes in model and view
             if (this.addAwayTeamMembersFn(crewmemberIdsToAdd)) {
+                DOM.alertBox("Adding Member...");
                 model.addAwayTeamMembers(crewmemberIdsToAdd);
                 DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement);
             }
@@ -181,6 +182,9 @@ class Scaffold {
             if (!promise) {
                 return;
             }
+
+            DOM.alertBox("Decrypting...");
+
             promise
                 .then((decrypted) => {
                     console.log(`Decrypting '${orderId}'`, decrypted);
@@ -223,6 +227,8 @@ class Scaffold {
                 return;
             }
 
+            DOM.alertBox("Encrypting...");
+
             // clear the input field
             DOM.orderPlainTextElement.value = '';
 
@@ -248,6 +254,7 @@ class Scaffold {
 
             // if remove has been implemented, reflect changes in model and view
             if (this.removeAwayTeamMembersFn(crewmemberIdsToRemove)) {
+                DOM.alertBox("Removing Member...");
                 model.removeAwayTeamMembers(crewmemberIdsToRemove);
                 DOM.moveItemsBetweenSelects(DOM.toElement, DOM.fromElement);
             }
