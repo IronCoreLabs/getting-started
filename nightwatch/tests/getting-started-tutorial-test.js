@@ -1,60 +1,35 @@
-/* eslint-disable */
-
 module.exports = {
-    tags: ['getting-started-tutorial-test'],
-    'Smoke test getting-started-tutorial' : function (client) {
-      client
-        .url('http://localhost:3000');
+    'tags': ['getting-started-tutorial-test'],
+    'Smoke test getting-started-tutorial': (client) => {
+        const message = require('../../app/scaffold/message');
+        const page = client.page.gettingStarted();
 
-      // PageObject variable that contains page elements and functions
-      var page = client.page.gettingStarted();
+        page.init(client);
 
-      // Variables for max waiting times
+        // Clicking 'Encrypt' w/o having the function added or a message inputted and checking that an alert-box appears
 
-      var apiCallTimeout = 10000;
-      var alertBoxTimeout = 6000;
+        page.encryptButtonClick(client, 'Please enter an order');
 
-      // Waiting for the page to finish loading and checking that the command logs are showing
+        // Entering 'Set phasers to stun', clicking encrypt, and checking that an alert-box/log message appears
 
-      page.waitForLoad(client, apiCallTimeout);
-   
-      // Clicking 'Encrypt' w/o having the function added or a message inputted and checking that an alert-box appears
+        page.encryptMessage(client, 'Set phasers to stun');
+        page.tutorialImplementFunctionMessage(client, message.stepOneTodo.short);
 
-      page.clickEncryptButton(client);
-      page.expectAlert(client, alertBoxTimeout, 'Please enter an order');
+        // Clicking 'Add' w/o having the function added and checking that an alert-box/log message appears
 
-      // Entering 'Set phasers to stun', clicking encrypt, and checking that an alert-box appears
+        page.clickAddButton(client);
+        page.tutorialImplementFunctionMessage(client, message.stepThreeTodo.short);
 
-      page.encryptMessage(client, 'Set phasers to stun');
-      page.expectAlert(client, alertBoxTimeout, 'WRITE ME: Copy and paste encryptData into app/get-started-by-writing-me.js');
+        // Clicking 'Remove' w/o having the function added and checking that an alert-box/log message appears
 
-      // Check that the correct text appeared in the console after clicking encrypt button
+        page.clickRemoveButton(client);
+        page.tutorialImplementFunctionMessage(client, message.stepFourTodo.short);
 
-      page.expectLog(client, 'WRITE ME: Copy and paste encryptData into app/get-started-by-writing-me.js');
+        // Clicking 'Decrypt' and checking that the log contains a message telling the user select a decryption order
 
-      // Clicking 'Add' w/o having the function added and checking that an alert-box appears
+        page.clickDecryptButton(client);
+        page.expectAlert(client, 'Please enter an order id and an order to decrypt');
 
-      page.clickAddButton(client);
-      page.expectAlert(client, alertBoxTimeout, 'WRITE ME: Copy and paste addAwayTeamMembers into app/get-started-by-writing-me.js');
-
-      // Check that the correct text appeared in the console after clicking add members button
-
-      page.expectLog(client, 'WRITE ME: Copy and paste addAwayTeamMembers into app/get-started-by-writing-me.js');
-
-      // Clicking 'Remove' w/o having the function added and checking that an alert-box appears
-
-      page.clickRemoveButton(client);
-      page.expectAlert(client, alertBoxTimeout, 'WRITE ME: Copy and paste removeAwayTeamMembers into app/get-started-by-writing-me.js');
-
-      // Check that the correct text appeared in the console after clicking remove members button
-
-      page.expectLog(client, 'WRITE ME: Copy and paste removeAwayTeamMembers into app/get-started-by-writing-me.js');
-
-      // Checking that the log contains a message telling the user select a decryption order
-      
-      page.clickDecryptButton(client);
-      page.expectAlert(client, alertBoxTimeout, 'Please enter an order id and an order to decrypt');
-
-      client.end();
+        client.end();
     }
-  };
+};

@@ -1,7 +1,6 @@
 {
   "src_folders": ["nightwatch/tests/"],
   "output_folder": "./bin/nightwatch",
-  "custom_assertions_path": "",
   "page_objects_path": "nightwatch/pageObjects",
   "globals_path": "./globalsModule.js",
 

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     notInitialized: 'You must call engage with your implementation functions',
     noBrowserSupport: {
         short: 'Safari 11.1 has a bug that prevents this demo from working. Proceed with caution.',

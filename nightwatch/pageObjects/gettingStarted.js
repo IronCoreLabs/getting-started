@@ -1,11 +1,12 @@
-/* eslint-disable */
 /**
  * Actions and assertions for document list page view
  */
+const constants = require('../tests/constants');
+
 const gettingStartedActions = {
-    waitForLoad(client, apiCallTimeout) {
-        client.expect.element('body').to.be.present;
-        client.waitForElementVisible(this.elements.logString.selector, apiCallTimeout);
+    waitForLoad(client) {
+        client.waitForElementVisible(this.elements.logString.selector, constants.apiCallTimeout);
+        return client.expect.element('body').to.be.present;
     },
     clickEncryptButton(client) {
         client.click(this.elements.encryptButton.selector);
@@ -23,33 +24,45 @@ const gettingStartedActions = {
         client.setValue(this.elements.encryptInput.selector, msg);
         this.clickEncryptButton(client);
     },
-    expectEncryptTable(client, apiCallTimeout) {
-        client.waitForElementVisible(this.elements.orderIDText.selector, apiCallTimeout);
+    expectEncryptTable(client) {
+        client.waitForElementVisible(this.elements.orderIDText.selector, constants.apiCallTimeout);
     },
-    expectDecryptOrder(client, orderId, crewMember, apiCallTimeout, expectedText) {
+    expectDecryptOrder(client, orderId, crewMember, expectedText) {
         client.click(`${this.elements.decryptSelectMember.selector} option[value='${crewMember}']`);
         client.click(`${this.elements.decryptSelectOrder.selector} option[value='${orderId}'`);
         this.clickDecryptButton(client);
-        client.waitForElementVisible(this.elements.decryptTable.selector, apiCallTimeout);
+        client.waitForElementVisible(this.elements.decryptTable.selector, constants.apiCallTimeout);
         this.expectLog(client, expectedText);
     },
-    expectAddMember(client, crewMember, apiCallTimeout, expectedText) {
+    expectAddMember(client, crewMember, expectedText) {
         client.click(`${this.elements.addSelectMember.selector} option[value='${crewMember}']`)
         this.clickAddButton(client);
-        client.expect.element('#logger:last-child').text.to.contain(expectedText).before(apiCallTimeout);
+        client.expect.element(this.elements.lastLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
     },
-    expectRemoveMember(client, crewMember, apiCallTimeout, expectedText) {
-        client.click(`select#to-element option[value='redshirt']`);
-        client.click('button#remove-button');
-        client.expect.element('#logger:last-child').text.to.contain(`Crewmembers removed from group 'away-team'`).before(apiCallTimeout);
+    expectRemoveMember(client, crewMember, expectedText) {
+        client.click(`${this.elements.removeSelectMemeber.selector} option[value='${crewMember}']`);
+        client.click(this.elements.removeButton.selector);
+        client.expect.element(this.elements.lastLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
     },
-    expectAlert(client, alertBoxTimeout, expectedText) {
-        client.waitForElementVisible(this.elements.alertBox.selector, alertBoxTimeout);
+    expectAlert(client, expectedText) {
+        client.waitForElementVisible(this.elements.alertBox.selector, constants.alertBoxTimeout);
         client.assert.containsText(this.elements.alertBox.selector, expectedText);
     },
     expectLog(client, expectedText) {
         client.assert.containsText(this.elements.lastLog.selector, expectedText);
     },
+    init(client){
+        client.url(constants.url);
+        this.waitForLoad(client);
+    },
+    encryptButtonClick(client, message){
+        this.clickEncryptButton(client, message);
+        this.expectAlert(client, message);
+    },
+    tutorialImplementFunctionMessage(client, message){
+        this.expectAlert(client, message);
+        this.expectLog(client, message);
+    }
 };
 
 const gettingStartedElements = {
@@ -63,13 +76,14 @@ const gettingStartedElements = {
     decryptSelectMember: { selector: 'select#crew-member' },
     decryptSelectOrder: { selector: 'select#order-id-to-decrypt' },
     addSelectMember: { selector: 'select#from-element' },
+    removeSelectMemeber: { selector: 'select#to-element' },
     addButton: { selector: 'button#add-button' },
     removeButton: { selector: 'button#remove-button' },
-    lastLog: { selector: '#logger:last-child' },
+    lastLog: { selector: '#logger:last-child' }
 };
 
 module.exports = {
     commands: [gettingStartedActions],
     elements: gettingStartedElements,
-    selector: '.gettingStarted',
+    selector: '.gettingStarted'
 };
