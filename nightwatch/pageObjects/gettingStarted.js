@@ -1,67 +1,66 @@
 /**
- * Actions and assertions for document list page view
+ * Actions and assertions for getting-started
  */
 const constants = require('../tests/constants');
 
 const gettingStartedActions = {
-    waitForLoad(client) {
-        client.waitForElementVisible(this.elements.logString.selector, constants.apiCallTimeout);
-        return client.expect.element('body').to.be.present;
+    waitForLoad() {
+        this.waitForElementVisible(this.elements.logString.selector, constants.apiCallTimeout);
     },
-    clickEncryptButton(client) {
-        client.click(this.elements.encryptButton.selector);
+    clickEncryptButton() {
+        this.click(this.elements.encryptButton.selector);
     },
-    clickDecryptButton(client) {
-        client.click(this.elements.decryptButton.selector);
+    clickDecryptButton() {
+        this.click(this.elements.decryptButton.selector);
     },
-    clickAddButton(client) {
-        client.click(this.elements.addButton.selector);
+    clickAddButton() {
+        this.click(this.elements.addButton.selector);
     },
-    clickRemoveButton(client) {
-        client.click(this.elements.removeButton.selector);
+    clickRemoveButton() {
+        this.click(this.elements.removeButton.selector);
     },
-    encryptMessage(client, msg) {
-        client.setValue(this.elements.encryptInput.selector, msg);
-        this.clickEncryptButton(client);
+    encryptMessage(msg) {
+        this.setValue(this.elements.encryptInput.selector, msg);
+        this.clickEncryptButton();
     },
-    expectEncryptTable(client) {
-        client.waitForElementVisible(this.elements.orderIDText.selector, constants.apiCallTimeout);
+    expectEncryptTable() {
+        this.waitForElementVisible(this.elements.orderIDText.selector, constants.apiCallTimeout);
     },
-    expectDecryptOrder(client, orderId, crewMember, expectedText) {
-        client.click(`${this.elements.decryptSelectMember.selector} option[value='${crewMember}']`);
-        client.click(`${this.elements.decryptSelectOrder.selector} option[value='${orderId}'`);
-        this.clickDecryptButton(client);
-        client.waitForElementVisible(this.elements.decryptTable.selector, constants.apiCallTimeout);
-        this.expectLog(client, expectedText);
+    expectDecryptOrder(orderId, crewMember, expectedText) {
+        this.click(`${this.elements.decryptSelectMember.selector} option[value='${crewMember}']`);
+        this.click(`${this.elements.decryptSelectOrder.selector} option[value='${orderId}'`);
+        this.clickDecryptButton();
+        this.waitForElementVisible(this.elements.decryptTable.selector, constants.apiCallTimeout);
+        this.expectLog(expectedText);
     },
-    expectAddMember(client, crewMember, expectedText) {
-        client.click(`${this.elements.addSelectMember.selector} option[value='${crewMember}']`)
-        this.clickAddButton(client);
-        client.expect.element(this.elements.lastLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
+    expectAddMember(crewMember, expectedText) {
+        this.click(`${this.elements.addSelectMember.selector} option[value='${crewMember}']`)
+        this.clickAddButton();
+        this.expect.element(this.elements.lastLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
     },
-    expectRemoveMember(client, crewMember, expectedText) {
-        client.click(`${this.elements.removeSelectMemeber.selector} option[value='${crewMember}']`);
-        client.click(this.elements.removeButton.selector);
-        client.expect.element(this.elements.lastLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
+    expectRemoveMember(crewMember, expectedText) {
+        this.click(`${this.elements.removeSelectMemeber.selector} option[value='${crewMember}']`);
+        this.click(this.elements.removeButton.selector);
+        this.expect.element(this.elements.lastLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
     },
-    expectAlert(client, expectedText) {
-        client.waitForElementVisible(this.elements.alertBox.selector, constants.alertBoxTimeout);
-        client.assert.containsText(this.elements.alertBox.selector, expectedText);
+    expectAlert(expectedText) {
+        this.waitForElementVisible(this.elements.alertBox.selector, constants.alertBoxTimeout);
+        this.assert.containsText(this.elements.alertBox.selector, expectedText);
     },
-    expectLog(client, expectedText) {
-        client.assert.containsText(this.elements.lastLog.selector, expectedText);
+    expectLog(expectedText) {
+        this.assert.containsText(this.elements.lastLog.selector, expectedText);
     },
-    init(client){
-        client.url(constants.url);
-        this.waitForLoad(client);
+    init(){
+        this.navigate(constants.url);
+        this.waitForLoad();
     },
-    encryptButtonClick(client, message){
-        this.clickEncryptButton(client, message);
-        this.expectAlert(client, message);
+    encryptButtonClick(message){
+        this.clickEncryptButton(message);
+        this.expectAlert(message);
     },
-    tutorialImplementFunctionMessage(client, message){
-        this.expectAlert(client, message);
-        this.expectLog(client, message);
+    tutorialImplementFunctionMessage(message){
+        this.expectAlert(message);
+        this.expectLog(message);
     }
 };
 
