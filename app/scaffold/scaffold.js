@@ -114,12 +114,10 @@ class Scaffold {
         // In a later tutorial, we'll explain what we just said and why, and
         // we'll show you the proper way to do it.
         return IRON.initialize(() => Utils.requestJWT(userId), Utils.getUserPasscode)
-            .then((iron) => {
+            .then(() => {
                 console.log(`As user id ${userId}`);
                 this.currentUserId = userId;
                 model.setCurrentUserId(userId);
-                this.IRON = iron;
-                return iron;
             });
     }
 
@@ -153,7 +151,7 @@ class Scaffold {
                 DOM.alertBox("Please select a crew member to add");
             }
             else {
-                DOM.alertBox("Adding crew member(s)");
+                DOM.alertBox("Adding crew member(s)...");
             }
 
             model.addAwayTeamMembers(crewmemberIdsToAdd);
@@ -161,7 +159,7 @@ class Scaffold {
 
             addMembersPromise.then(() => {
                 DOM.hideElement(DOM.alertBoxElement);
-                console.log("Successfully added new members to away team");
+                console.log("Successfully added new members to away-team");
             });
 
             // clear decrypted orders if currently selected
@@ -197,7 +195,7 @@ class Scaffold {
                 return;
             }
 
-            DOM.alertBox("Decrypting");
+            DOM.alertBox("Decrypting...");
 
             promise
                 .then((decrypted) => {
