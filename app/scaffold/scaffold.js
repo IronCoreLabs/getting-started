@@ -149,9 +149,10 @@ class Scaffold {
                 return;
             }
 
-            if(crewmemberIdsToAdd.length === 0){
+            if(crewmemberIdsToAdd.length === 0) {
                 DOM.alertBox("Please select a crew member to add");
-            }else{
+            }
+            else {
                 DOM.alertBox("Adding crew member(s)");
             }
 
@@ -161,7 +162,7 @@ class Scaffold {
             addMembersPromise.then(() => {
                 DOM.hideElement(DOM.alertBoxElement);
                 console.log("Successfully added new members to away team");
-            })
+            });
 
             // clear decrypted orders if currently selected
             // crewmember is part of the operation
@@ -196,7 +197,7 @@ class Scaffold {
                 return;
             }
 
-            DOM.alertBox("Attempting to decrypt...");
+            DOM.alertBox("Decrypting");
 
             promise
                 .then((decrypted) => {
@@ -274,7 +275,7 @@ class Scaffold {
                 return;
             }
 
-            if(crewmemberIdsToRemove.length === 0){
+            if(crewmemberIdsToRemove.length === 0) {
                 DOM.alertBox("Please select a crew member to remove");
             }
 
@@ -283,7 +284,7 @@ class Scaffold {
 
             removeMembersPromise.then(() => {
                 console.log("Successfully removed new members to away team");
-            })
+            });
 
             // clear decrypted orders if currently selected
             // crewmember is part of the operation
