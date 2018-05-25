@@ -144,17 +144,24 @@ class Scaffold {
             const crewmemberIdsToAdd = DOM.getSelectedValues(DOM.fromElement);
 
             // if add has been implemented, reflect changes in model and view
-            if (this.addAwayTeamMembersFn(crewmemberIdsToAdd)) {
-
-                if(crewmemberIdsToAdd.length === 0){
-                    DOM.alertBox("Please select a crew member to add");
-                }else{
-                    DOM.alertBox("Adding crew member(s)");
-                }
-
-                model.addAwayTeamMembers(crewmemberIdsToAdd);
-                DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement);
+            const addMembersPromise = this.addAwayTeamMembersFn(crewmemberIdsToAdd);
+            if(!addMembersPromise){
+                return;
             }
+
+            if(crewmemberIdsToAdd.length === 0){
+                DOM.alertBox("Please select a crew member to add");
+            }else{
+                DOM.alertBox("Adding crew member(s)");
+            }
+
+            model.addAwayTeamMembers(crewmemberIdsToAdd);
+            DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement);
+
+            addMembersPromise.then(() => {
+                DOM.hideElement(DOM.alertBoxElement);
+                console.log("Successfully added new members to away team");
+            })
 
             // clear decrypted orders if currently selected
             // crewmember is part of the operation
@@ -189,16 +196,18 @@ class Scaffold {
                 return;
             }
 
-            DOM.alertBox("Decrypting...");
+            DOM.alertBox("Attempting to decrypt...");
 
             promise
                 .then((decrypted) => {
+                    DOM.hideElement(DOM.alertBoxElement);
                     console.log(`Decrypted '${orderId}'`, decrypted);
                     const plaintext = IRON.codec.utf8.fromBytes(decrypted.data);
                     const row = DOM.appendDecryptedOrder(orderId, plaintext);
                     DOM.scrollIntoViewIfNeeded(row, false);
                 })
                 .catch((error) => {
+                    DOM.hideElement(DOM.alertBoxElement);
                     console.log(`Error decrypting '${orderId}'`, error);
                     // add the error message to the table
 
@@ -240,6 +249,7 @@ class Scaffold {
 
             // encrypt, adding the result to the ui asynchronously
             promise.then((encrypted) => {
+                DOM.hideElement(DOM.alertBoxElement);
                 console.log(encrypted);
 
                 // Model / View
@@ -259,17 +269,21 @@ class Scaffold {
             const crewmemberIdsToRemove = DOM.getSelectedValues(DOM.toElement);
 
             // if remove has been implemented, reflect changes in model and view
-            if (this.removeAwayTeamMembersFn(crewmemberIdsToRemove)) {
-
-                if(crewmemberIdsToRemove.length === 0){
-                    DOM.alertBox("Please select a crew member to remove");
-                }else{
-                    DOM.alertBox("Removing crew member(s)");
-                }
-
-                model.removeAwayTeamMembers(crewmemberIdsToRemove);
-                DOM.moveItemsBetweenSelects(DOM.toElement, DOM.fromElement);
+            const removeMembersPromise = this.removeAwayTeamMembersFn(crewmemberIdsToRemove);
+            if(!removeMembersPromise){
+                return;
             }
+
+            if(crewmemberIdsToRemove.length === 0){
+                DOM.alertBox("Please select a crew member to remove");
+            }
+
+            model.removeAwayTeamMembers(crewmemberIdsToRemove);
+            DOM.moveItemsBetweenSelects(DOM.toElement, DOM.fromElement);
+
+            removeMembersPromise.then(() => {
+                console.log("Successfully removed new members to away team");
+            })
 
             // clear decrypted orders if currently selected
             // crewmember is part of the operation

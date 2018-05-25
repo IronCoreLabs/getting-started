@@ -167,7 +167,6 @@ export function configurePageLogger(logger) {
                 typeof JSON.stringify === "function"
             ) {
                 output += JSON.stringify(arg, replacer, 4);
-                hideElement(alertBoxElement);
             }
             else {
                 output += arg;
