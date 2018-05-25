@@ -9,8 +9,8 @@
     "lint": "eslint ./app",
     "start": "webpack-dev-server --config webpack.config.js --colors --env.stage=tutorial",
     "complete": "webpack-dev-server --config webpack.config.js --colors --env.stage=complete",
-    "testTutorial": "nightwatch --test tests/getting-started-tutorial-test.js",
-    "testComplete": "nightwatch --test tests/getting-started-complete-test.js"
+    "testTutorial": "nightwatch --test nightwatch/tests/getting-started-tutorial-test.js",
+    "testComplete": "nightwatch --test nightwatch/tests/getting-started-complete-test.js"
   },
   "dependencies": {
     "@ironcorelabs/ironweb": "1.0.5",
