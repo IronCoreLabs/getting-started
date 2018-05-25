@@ -145,6 +145,13 @@ class Scaffold {
 
             // if add has been implemented, reflect changes in model and view
             if (this.addAwayTeamMembersFn(crewmemberIdsToAdd)) {
+
+                if(crewmemberIdsToAdd.length === 0){
+                    DOM.alertBox("Please select a crew member to add");
+                }else{
+                    DOM.alertBox("Adding crew member(s)");
+                }
+
                 model.addAwayTeamMembers(crewmemberIdsToAdd);
                 DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement);
             }
@@ -181,9 +188,12 @@ class Scaffold {
             if (!promise) {
                 return;
             }
+
+            DOM.alertBox("Decrypting...");
+
             promise
                 .then((decrypted) => {
-                    console.log(`Decrypting '${orderId}'`, decrypted);
+                    console.log(`Decrypted '${orderId}'`, decrypted);
                     const plaintext = IRON.codec.utf8.fromBytes(decrypted.data);
                     const row = DOM.appendDecryptedOrder(orderId, plaintext);
                     DOM.scrollIntoViewIfNeeded(row, false);
@@ -223,6 +233,8 @@ class Scaffold {
                 return;
             }
 
+            DOM.alertBox("Encrypting...");
+
             // clear the input field
             DOM.orderPlainTextElement.value = '';
 
@@ -248,6 +260,13 @@ class Scaffold {
 
             // if remove has been implemented, reflect changes in model and view
             if (this.removeAwayTeamMembersFn(crewmemberIdsToRemove)) {
+
+                if(crewmemberIdsToRemove.length === 0){
+                    DOM.alertBox("Please select a crew member to remove");
+                }else{
+                    DOM.alertBox("Removing crew member(s)");
+                }
+
                 model.removeAwayTeamMembers(crewmemberIdsToRemove);
                 DOM.moveItemsBetweenSelects(DOM.toElement, DOM.fromElement);
             }
