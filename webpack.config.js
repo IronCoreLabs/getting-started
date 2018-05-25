@@ -37,7 +37,7 @@ module.exports = (env) => {
     return {
         devServer: {
             port: 3000,
-            setup(app){
+            before(app){
                 app.get('/generateJWT/:userID', serveJWT);
                 app.get('/', (req, res) => res.sendFile('index.html', {root: __dirname}));
             },
