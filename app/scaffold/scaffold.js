@@ -105,6 +105,8 @@ class Scaffold {
             return Promise.resolve(this.IRON);
         }
 
+        DOM.showElement(DOM.loadBar);
+
         // IronCore integrates with your existing identity infrastructure
         // by accepting an asserted identity.  To make it easy to provide
         // a getting started tutorial, we sign the identity token with a local
@@ -114,12 +116,11 @@ class Scaffold {
         // In a later tutorial, we'll explain what we just said and why, and
         // we'll show you the proper way to do it.
         return IRON.initialize(() => Utils.requestJWT(userId), Utils.getUserPasscode)
-            .then((iron) => {
+            .then(() => {
                 console.log(`As user id ${userId}`);
+                DOM.hideElement(DOM.loadBar);
                 this.currentUserId = userId;
                 model.setCurrentUserId(userId);
-                this.IRON = iron;
-                return iron;
             });
     }
 
@@ -144,10 +145,25 @@ class Scaffold {
             const crewmemberIdsToAdd = DOM.getSelectedValues(DOM.fromElement);
 
             // if add has been implemented, reflect changes in model and view
-            if (this.addAwayTeamMembersFn(crewmemberIdsToAdd)) {
-                model.addAwayTeamMembers(crewmemberIdsToAdd);
-                DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement);
+            const addMembersPromise = this.addAwayTeamMembersFn(crewmemberIdsToAdd);
+            if(!addMembersPromise){
+                return;
             }
+
+            if(crewmemberIdsToAdd.length === 0) {
+                DOM.alertBox("Please select a crew member to add");
+            }
+            else {
+                DOM.showElement(DOM.loadBar);
+            }
+
+            model.addAwayTeamMembers(crewmemberIdsToAdd);
+            DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement);
+
+            addMembersPromise.then(() => {
+                DOM.hideElement(DOM.loadBar);
+                console.log("Successfully added new members to away-team");
+            });
 
             // clear decrypted orders if currently selected
             // crewmember is part of the operation
@@ -181,14 +197,19 @@ class Scaffold {
             if (!promise) {
                 return;
             }
+
+            DOM.showElement(DOM.loadBar);
+
             promise
                 .then((decrypted) => {
-                    console.log(`Decrypting '${orderId}'`, decrypted);
+                    DOM.hideElement(DOM.loadBar);
+                    console.log(`Decrypted '${orderId}'`, decrypted);
                     const plaintext = IRON.codec.utf8.fromBytes(decrypted.data);
                     const row = DOM.appendDecryptedOrder(orderId, plaintext);
                     DOM.scrollIntoViewIfNeeded(row, false);
                 })
                 .catch((error) => {
+                    DOM.hideElement(DOM.loadBar);
                     console.log(`Error decrypting '${orderId}'`, error);
                     // add the error message to the table
 
@@ -223,11 +244,14 @@ class Scaffold {
                 return;
             }
 
+            DOM.showElement(DOM.loadBar);
+
             // clear the input field
             DOM.orderPlainTextElement.value = '';
 
             // encrypt, adding the result to the ui asynchronously
             promise.then((encrypted) => {
+                DOM.hideElement(DOM.loadBar);
                 console.log(encrypted);
 
                 // Model / View
@@ -247,10 +271,25 @@ class Scaffold {
             const crewmemberIdsToRemove = DOM.getSelectedValues(DOM.toElement);
 
             // if remove has been implemented, reflect changes in model and view
-            if (this.removeAwayTeamMembersFn(crewmemberIdsToRemove)) {
-                model.removeAwayTeamMembers(crewmemberIdsToRemove);
-                DOM.moveItemsBetweenSelects(DOM.toElement, DOM.fromElement);
+            const removeMembersPromise = this.removeAwayTeamMembersFn(crewmemberIdsToRemove);
+            if(!removeMembersPromise){
+                return;
             }
+
+            if(crewmemberIdsToRemove.length === 0) {
+                DOM.alertBox("Please select a crew member to remove");
+            }
+            else {
+                DOM.showElement(DOM.loadBar);
+            }
+
+            model.removeAwayTeamMembers(crewmemberIdsToRemove);
+            DOM.moveItemsBetweenSelects(DOM.toElement, DOM.fromElement);
+
+            removeMembersPromise.then(() => {
+                DOM.hideElement(DOM.loadBar);
+                console.log("Successfully removed new members to away team");
+            });
 
             // clear decrypted orders if currently selected
             // crewmember is part of the operation

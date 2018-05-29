@@ -29,10 +29,10 @@ h2 {
 }
 
 h3 {
+    color: #979797;
     font-family: 'Andale Mono';
     font-size: 18px;
     font-weight: 100;
-    color: #979797;
     padding-bottom: 20px;
 }
 
@@ -57,8 +57,8 @@ select:focus {
 /* Article */
 
 article {
-    padding: 40px 0;
     border-bottom: 1px solid #bac6cd;
+    padding: 40px 0;
 }
 
 /* Nav */
@@ -329,6 +329,29 @@ tbody>td>.ordered-id {
     width: 225px;
 }
 
+#loadbar {
+    background-color: #F76866;
+    display: none;
+    height: 6px;
+    position: fixed;
+    top: 148px;
+    width: 100%;
+}
+
+#loadbar:before{
+    animation: loading 1s linear infinite;
+    background-color: #F20300;
+    content: "";
+    display: block;
+    height: 6px;
+    position: absolute;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 10%;}
+    to {left: 100%; width: 30%;}
+}
+
 /* MOBILE */
 
 @media screen and (max-width: 1170px) {
@@ -344,8 +367,8 @@ tbody>td>.ordered-id {
         bottom: 0;
         height: 130px;
         left: 0;
-        padding: 30px 30px;
         margin: 0;
+        padding: 30px 30px;
         width: 100%;
     }
     nav {
@@ -360,6 +383,9 @@ tbody>td>.ordered-id {
     }
     #alert-box {
         top: 100px;
+    }
+    #loadbar{
+        top: 82px;
     }
 }
 

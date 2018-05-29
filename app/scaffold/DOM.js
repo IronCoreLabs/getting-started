@@ -16,6 +16,7 @@ export const toElement = document.getElementById('to-element');
 export const encryptedOrdersTable = document.getElementById('encrypted-orders');
 export const loggerElement = document.getElementById('logger');
 export const loggedInUserHeadshot = document.getElementById('crew-member-headshot');
+export const loadBar = document.getElementById('loadbar');
 
 // Some simple DOM utilities to minimize dependencies
 
