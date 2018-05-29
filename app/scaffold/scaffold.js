@@ -105,6 +105,8 @@ class Scaffold {
             return Promise.resolve(this.IRON);
         }
 
+        DOM.showElement(DOM.loadBar);
+
         // IronCore integrates with your existing identity infrastructure
         // by accepting an asserted identity.  To make it easy to provide
         // a getting started tutorial, we sign the identity token with a local
@@ -116,6 +118,7 @@ class Scaffold {
         return IRON.initialize(() => Utils.requestJWT(userId), Utils.getUserPasscode)
             .then(() => {
                 console.log(`As user id ${userId}`);
+                DOM.hideElement(DOM.loadBar);
                 this.currentUserId = userId;
                 model.setCurrentUserId(userId);
             });
@@ -151,14 +154,14 @@ class Scaffold {
                 DOM.alertBox("Please select a crew member to add");
             }
             else {
-                DOM.alertBox("Adding crew member(s)...");
+                DOM.showElement(DOM.loadBar);
             }
 
             model.addAwayTeamMembers(crewmemberIdsToAdd);
             DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement);
 
             addMembersPromise.then(() => {
-                DOM.hideElement(DOM.alertBoxElement);
+                DOM.hideElement(DOM.loadBar);
                 console.log("Successfully added new members to away-team");
             });
 
@@ -195,18 +198,18 @@ class Scaffold {
                 return;
             }
 
-            DOM.alertBox("Decrypting...");
+            DOM.showElement(DOM.loadBar);
 
             promise
                 .then((decrypted) => {
-                    DOM.hideElement(DOM.alertBoxElement);
+                    DOM.hideElement(DOM.loadBar);
                     console.log(`Decrypted '${orderId}'`, decrypted);
                     const plaintext = IRON.codec.utf8.fromBytes(decrypted.data);
                     const row = DOM.appendDecryptedOrder(orderId, plaintext);
                     DOM.scrollIntoViewIfNeeded(row, false);
                 })
                 .catch((error) => {
-                    DOM.hideElement(DOM.alertBoxElement);
+                    DOM.hideElement(DOM.loadBar);
                     console.log(`Error decrypting '${orderId}'`, error);
                     // add the error message to the table
 
@@ -241,14 +244,14 @@ class Scaffold {
                 return;
             }
 
-            DOM.alertBox("Encrypting...");
+            DOM.showElement(DOM.loadBar);
 
             // clear the input field
             DOM.orderPlainTextElement.value = '';
 
             // encrypt, adding the result to the ui asynchronously
             promise.then((encrypted) => {
-                DOM.hideElement(DOM.alertBoxElement);
+                DOM.hideElement(DOM.loadBar);
                 console.log(encrypted);
 
                 // Model / View
@@ -276,11 +279,15 @@ class Scaffold {
             if(crewmemberIdsToRemove.length === 0) {
                 DOM.alertBox("Please select a crew member to remove");
             }
+            else {
+                DOM.showElement(DOM.loadBar);
+            }
 
             model.removeAwayTeamMembers(crewmemberIdsToRemove);
             DOM.moveItemsBetweenSelects(DOM.toElement, DOM.fromElement);
 
             removeMembersPromise.then(() => {
+                DOM.hideElement(DOM.loadBar);
                 console.log("Successfully removed new members to away team");
             });
 

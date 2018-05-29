@@ -329,6 +329,29 @@ tbody>td>.ordered-id {
     width: 225px;
 }
 
+#loadbar {
+    height: 6px;
+    width: 100%;
+    position: fixed;
+    background-color: #8F1900;
+    top: 148px;
+    display: none;
+}
+
+#loadbar:before{
+    display: block;
+    position: absolute;
+    content: "";
+    height: 6px;
+    background-color: #F20300;
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 10%;}
+    to {left: 100%; width: 30%;}
+}
+
 /* MOBILE */
 
 @media screen and (max-width: 1170px) {
@@ -360,6 +383,9 @@ tbody>td>.ordered-id {
     }
     #alert-box {
         top: 100px;
+    }
+    #loadbar{
+        top: 82px;
     }
 }
 
