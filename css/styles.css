@@ -29,10 +29,10 @@ h2 {
 }
 
 h3 {
+    color: #979797;
     font-family: 'Andale Mono';
     font-size: 18px;
     font-weight: 100;
-    color: #979797;
     padding-bottom: 20px;
 }
 
@@ -57,8 +57,8 @@ select:focus {
 /* Article */
 
 article {
-    padding: 40px 0;
     border-bottom: 1px solid #bac6cd;
+    padding: 40px 0;
 }
 
 /* Nav */
@@ -330,21 +330,21 @@ tbody>td>.ordered-id {
 }
 
 #loadbar {
-    height: 6px;
-    width: 100%;
-    position: fixed;
-    background-color: #8F1900;
-    top: 148px;
+    background-color: #F76866;
     display: none;
+    height: 6px;
+    position: fixed;
+    top: 148px;
+    width: 100%;
 }
 
 #loadbar:before{
-    display: block;
-    position: absolute;
-    content: "";
-    height: 6px;
-    background-color: #F20300;
     animation: loading 1s linear infinite;
+    background-color: #F20300;
+    content: "";
+    display: block;
+    height: 6px;
+    position: absolute;
 }
 
 @keyframes loading {
@@ -367,8 +367,8 @@ tbody>td>.ordered-id {
         bottom: 0;
         height: 130px;
         left: 0;
-        padding: 30px 30px;
         margin: 0;
+        padding: 30px 30px;
         width: 100%;
     }
     nav {
