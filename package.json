@@ -1,32 +1,33 @@
 {
-  "repository": {
-    "name": "ironcore-getting-started",
-    "version": "0.0.1",
-    "private": false
-  },
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint ./app",
-    "start": "webpack-dev-server --config webpack.config.js --colors --env.stage=tutorial",
-    "complete": "webpack-dev-server --config webpack.config.js --colors --env.stage=complete",
-    "testTutorial": "nightwatch --test nightwatch/tests/getting-started-tutorial-test.js",
-    "testComplete": "nightwatch --test nightwatch/tests/getting-started-complete-test.js"
-  },
-  "dependencies": {
-    "@ironcorelabs/ironweb": "1.0.5",
-    "es6-promise": "4.2.4",
-    "jsonwebtoken": "8.1.0",
-    "whatwg-fetch": "2.0.3"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
-    "chromedriver": "^2.38.3",
-    "eslint": "^4.19.1",
-    "nightwatch": "^0.9.21",
-    "webpack": "^3.11.0",
-    "webpack-dev-server": "^2.11.1"
-  },
-  "babel": {}
+    "repository": {
+        "name": "ironcore-getting-started",
+        "version": "0.0.1",
+        "private": false
+    },
+    "license": "MIT",
+    "scripts": {
+        "lint": "eslint ./app",
+        "start": "webpack-dev-server --config webpack.config.js --colors --env.stage=tutorial",
+        "complete": "webpack-dev-server --config webpack.config.js --colors --env.stage=complete",
+        "testTutorial": "nightwatch --test nightwatch/tests/getting-started-tutorial-test.js",
+        "testComplete": "nightwatch --test nightwatch/tests/getting-started-complete-test.js"
+    },
+    "dependencies": {
+        "@ironcorelabs/ironweb": "1.0.5",
+        "es6-promise": "4.2.4",
+        "jsonwebtoken": "8.1.0",
+        "whatwg-fetch": "2.0.3"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-preset-env": "^1.6.0",
+        "chromedriver": "^2.38.3",
+        "eslint": "^4.19.1",
+        "growl": "^1.10.0",
+        "nightwatch": "^0.9.21",
+        "webpack": "^3.11.0",
+        "webpack-dev-server": "^2.11.1"
+    },
+    "babel": {}
 }

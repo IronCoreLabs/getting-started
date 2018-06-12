@@ -96,7 +96,7 @@ Go back to the code and search on TODO and find the stub for `decryptData`. Then
 ```javascript
 function decryptData(crewmemberID, documentID, ciphertext) {
     // Take the perspective of the crew member
-    return Scaffold.asUser(crewmemberID).then((iron) => {
+    return Scaffold.asUser(crewmemberID).then(() => {
         // Transform encrypted data from the away-team to the crewmember,
         // then decrypt data locally
         return IRON.document.decrypt(documentID, ciphertext);
