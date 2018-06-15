@@ -21,7 +21,7 @@ function encryptData(plaintext) {
         const options = {
             accessList: {
                 groups: [{
-                    'id': model.awayTeamGroupId
+                    id: model.awayTeamGroupId
                 }]
             }
         };
@@ -38,7 +38,7 @@ function encryptData(plaintext) {
  */
 function decryptData(crewmemberID, documentID, ciphertext) {
     // Take the perspective of the crew member
-    return Scaffold.asUser(crewmemberID).then((iron) => {
+    return Scaffold.asUser(crewmemberID).then(() => {
         // Transform encrypted data from the away-team to the crewmember,
         // then decrypt data locally
         return IRON.document.decrypt(documentID, ciphertext);
@@ -52,17 +52,15 @@ function decryptData(crewmemberID, documentID, ciphertext) {
  */
 function addAwayTeamMembers(crewmemberIds) {
     // Take the perspective of Kirk
-    return Scaffold.asUser(User.kirk)
-        .then(() => {
-            // Kirk does not need to decide ahead of time who is on the
-            // away team.  The decision to add new members does not require
-            // modifications to the (away-team) encrypted data.
-            return IRON.group.addMembers(model.awayTeamGroupId, crewmemberIds)
-                .then((response) => {
-                    console.log("Crewmembers added to group 'away-team'", response);
-                    return response;
-                })
-        });
+    return Scaffold.asUser(User.kirk).then(() => {
+        // Kirk does not need to decide ahead of time who is on the
+        // away team.  The decision to add new members does not require
+        // modifications to the (away-team) encrypted data.
+        return IRON.group.addMembers(model.awayTeamGroupId, crewmemberIds).then((response) => {
+            console.log("Crewmembers added to group 'away-team'", response);
+            return response;
+        })
+    });
 }
 
 /**
@@ -72,17 +70,15 @@ function addAwayTeamMembers(crewmemberIds) {
  */
 function removeAwayTeamMembers(crewmemberIds) {
     // Initialize the SDK from the perspective of Kirk
-    return Scaffold.asUser(User.kirk)
-        .then(() => {
-            // Kirk can remove away team members at any time.  The decision to
-            // remove members does not require any modifications to the
-            // (away-team) encrypted data.
-            return IRON.group.removeMembers(model.awayTeamGroupId, crewmemberIds)
-                .then((response) => {
-                    console.log("Crewmembers removed from group 'away-team'", response);
-                    return response;
-                })
-        });
+    return Scaffold.asUser(User.kirk).then(() => {
+        // Kirk can remove away team members at any time.  The decision to
+        // remove members does not require any modifications to the
+        // (away-team) encrypted data.
+        return IRON.group.removeMembers(model.awayTeamGroupId, crewmemberIds).then((response) => {
+            console.log("Crewmembers removed from group 'away-team'", response);
+            return response;
+        })
+    });
 }
 
 // Engage

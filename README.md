@@ -7,7 +7,7 @@ sensitive data in just a few minutes.
 ### Clone, install, start
 
 ```bash
-git clone git@github.com:IronCoreLabs/quickstart.git
+git clone https://github.com/IronCoreLabs/getting-started.git
 cd quickstart
 npm install
 npm start
@@ -27,7 +27,7 @@ I want a way to securely share commands with my away team,
 So that Romulans and Klingons do not intercept my commands and kill us.
 ```
 
-When you load the application for the first time, it automatically logs in as Captain Kirk and creates an `away-team` group.  You will see log output on the right side that lools similar to:
+When you load the application for the first time, it automatically logs in as Captain Kirk and creates an `away-team` group. You will see log output on the right side that lools similar to:
 
 ```json
 As user id kirk
@@ -61,7 +61,7 @@ function encryptData(plaintext) {
         const options = {
             accessList: {
                 groups: [{
-                    'id': model.awayTeamGroupId
+                    id: model.awayTeamGroupId
                 }]
             }
         };
@@ -85,7 +85,7 @@ Encrypting plaintext 'Set phasers to stun'
 
 > Cryptographers use the terms plaintext and ciphertext. Plaintext is what you have before encryption, and ciphertext is the encrypted result.
 
-The json property `document` is the ciphertext for *Set phasers to stun*.
+The json property `document` is the ciphertext for _Set phasers to stun_.
 
 Kirk's command can only be decrypted by crew members that are members of the away team group. Right now Kirk is the only member.
 
@@ -96,7 +96,7 @@ Go back to the code and search on TODO and find the stub for `decryptData`. Then
 ```javascript
 function decryptData(crewmemberID, documentID, ciphertext) {
     // Take the perspective of the crew member
-    return Scaffold.asUser(crewmemberID).then((iron) => {
+    return Scaffold.asUser(crewmemberID).then(() => {
         // Transform encrypted data from the away-team to the crewmember,
         // then decrypt data locally
         return IRON.document.decrypt(documentID, ciphertext);
@@ -148,17 +148,15 @@ Go back to the code and search on TODO and find the stub for `addAwayTeamMembers
 ```javascript
 function addAwayTeamMembers(crewmemberIds) {
     // Take the perspective of Kirk
-    return Scaffold.asUser(User.kirk)
-        .then(() => {
-            // Kirk does not need to decide ahead of time who is on the
-            // away team.  The decision to add new members does not require
-            // modifications to the (away-team) encrypted data.
-            return IRON.group.addMembers(model.awayTeamGroupId, crewmemberIds)
-                .then((response) => {
-                    console.log("Crewmembers added to group 'away-team'", response);
-                    return response;
-                })
-        });
+    return Scaffold.asUser(User.kirk).then(() => {
+        // Kirk does not need to decide ahead of time who is on the
+        // away team.  The decision to add new members does not require
+        // modifications to the (away-team) encrypted data.
+        return IRON.group.addMembers(model.awayTeamGroupId, crewmemberIds).then((response) => {
+            console.log("Crewmembers added to group 'away-team'", response);
+            return response;
+        })
+    });
 }
 ```
 
@@ -201,9 +199,9 @@ Decrypted 2b544876c9ec9fa56c800c3a2235fdbd  {
 
 Fascinating.
 
-Without touching the underlying data (order), Mr. Spock is granted access to the encrypted command. Behind the scenes, IronCore is using _**transform encryption**__. Transform encryption allows a ciphertext encrypted to a group (e.g., the away team) to be transformed into ciphertext encrypted to a group member (e.g., Mr. Spock). The group member then locally decrypts data using their private key.
+Without touching the underlying data (order), Mr. Spock is granted access to the encrypted command. Behind the scenes, IronCore is using \_**transform encryption**\_\_. Transform encryption allows a ciphertext encrypted to a group (e.g., the away team) to be transformed into ciphertext encrypted to a group member (e.g., Mr. Spock). The group member then locally decrypts data using their private key.
 
-> Transform encryption is referred to as proxy-encryption (PRE) in the academic literature.  IronCore is the first commercialization of proxy-encryption (PRE).
+> Transform encryption is referred to as proxy-encryption (PRE) in the academic literature. IronCore is the first commercialization of proxy-encryption (PRE).
 
 IronCore's implementation of transform encryption is unidirectional, non-interactive, non-transitive, multi-hop and collusion safe. IronCore automatically handles all key management. You can read more about transform encryption in the ACM paper [Cryptographically Enforced Orthogonal Access Control at Scale](https://ironcorelabs.com/acm-report/).
 
@@ -211,9 +209,9 @@ IronCore's implementation of transform encryption is unidirectional, non-interac
 
 Play around a bit:
 
-1. Add a few more commands
-2. Add Ensign Redshirt to the Away Team
-3. Convince yourself that he can decrypt
+1.  Add a few more commands
+2.  Add Ensign Redshirt to the Away Team
+3.  Convince yourself that he can decrypt
 
 > For extra credit, try selecting an order and modifying the ciphertext before you click **Decrypt**
 
@@ -224,21 +222,19 @@ Go back to the code and search on TODO and find the stub for `removeAwayTeamMemb
 ```javascript
 function removeAwayTeamMembers(crewmemberIds) {
     // Initialize the SDK from the perspective of Kirk
-    return Scaffold.asUser(User.kirk)
-        .then(() => {
-            // Kirk can remove away team members at any time.  The decision to
-            // remove members does not require any modifications to the
-            // (away-team) encrypted data.
-            return IRON.group.removeMembers(model.awayTeamGroupId, crewmemberIds)
-                .then((response) => {
-                    console.log("Crewmembers removed from group 'away-team'", response);
-                    return response;
-                })
-        });
+    return Scaffold.asUser(User.kirk).then(() => {
+        // Kirk can remove away team members at any time.  The decision to
+        // remove members does not require any modifications to the
+        // (away-team) encrypted data.
+        return IRON.group.removeMembers(model.awayTeamGroupId, crewmemberIds).then((response) => {
+            console.log("Crewmembers removed from group 'away-team'", response);
+            return response;
+        })
+    });
 }
 ```
 
-Unfortunately, Ensign Redshirt did not return from the latest away team mission. You'll have to, *ahem*, offboard him. Remove Redshirt from the away team by selecting his name under Away Team and clicking the Remove button. You will see log output similar to:
+Unfortunately, Ensign Redshirt did not return from the latest away team mission. You'll have to, _ahem_, offboard him. Remove Redshirt from the away team by selecting his name under Away Team and clicking the Remove button. You will see log output similar to:
 
 ```json
 Crewmembers removed from group 'away-team' {
@@ -265,6 +261,6 @@ Again, without touching the underlying data, you are able to revoke access to it
 
 That completes your first mission. In less than 100 lines of JavaScript (including a lot of comments), you've built an application that has better privacy and security than some of the most popular web applications on Earth.
 
-Now it's time to explore integrating IronCore into your own application.  To do so, sign up for your account at [http://admin.ironcorelabs.com/login](http://admin.ironcorelabs.com/login).
+Now it's time to explore integrating IronCore into your own application. To do so, sign up for your account at [http://admin.ironcorelabs.com/login](http://admin.ironcorelabs.com/login).
 
 Live long and prosper.
