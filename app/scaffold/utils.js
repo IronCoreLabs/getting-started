@@ -41,9 +41,9 @@ export function isSafari(){
 /**
  * Check browser compatibility. If on Safari 11.1 show error.
  */
-export function checkBrowser(domElement, message) {
+export function checkBrowser(alertBox, message) {
     const unsupportedBrowserVersion = window.navigator.appVersion.indexOf("Version/11.1");
     if (isSafari() && unsupportedBrowserVersion !== -1) {
-        domElement(message);
+        alertBox.showAndOutputToConsole(message);
     }
 }

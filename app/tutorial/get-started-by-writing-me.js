@@ -4,6 +4,7 @@ import Scaffold from 'scaffold/scaffold';
 import model from 'scaffold/model';
 import message from 'scaffold/message';
 import * as DOM from 'scaffold/DOM';
+import alertBox from '../scaffold/alertBox';
 
 // These are the functions of the Starship Enterprise
 
@@ -14,7 +15,7 @@ import * as DOM from 'scaffold/DOM';
  */
 function encryptData(plaintext) {
     // TODO: Replace all of the lines below with your encryptData implementation
-    DOM.alertMessageToScreenAndConsole(message.stepOneTodo);
+    alertBox.showAndOutputToConsole(message.stepOneTodo);
     return null;
 }
 
@@ -27,7 +28,7 @@ function encryptData(plaintext) {
  */
 function decryptData(crewmemberID, documentID, ciphertext) {
     // TODO: Replace all of the lines below with your encryptData implementation
-    DOM.alertMessageToScreenAndConsole(message.stepTwoTodo);
+    alertBox.showAndOutputToConsole(message.stepTwoTodo);
     return null;
 }
 
@@ -38,7 +39,7 @@ function decryptData(crewmemberID, documentID, ciphertext) {
  */
 function addAwayTeamMembers(crewmemberIds) {
     // TODO: Replace all of the lines below with your encryptData implementation
-    DOM.alertMessageToScreenAndConsole(message.stepThreeTodo);
+    alertBox.showAndOutputToConsole(message.stepThreeTodo);
     return null;
 }
 
@@ -49,7 +50,7 @@ function addAwayTeamMembers(crewmemberIds) {
  */
 function removeAwayTeamMembers(crewmemberIds) {
     // TODO: Replace all of the lines below with your encryptData implementation
-    DOM.alertMessageToScreenAndConsole(message.stepFourTodo);
+    alertBox.showAndOutputToConsole(message.stepFourTodo);
     return null;
 }
 
