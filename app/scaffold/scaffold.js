@@ -73,8 +73,12 @@ class Scaffold {
         if (model.isNewSession) {
             this.wait = this._asUser(User.kirk)
                 .then((iron) => {
+                    DOM.showElement(DOM.loadBar);
                     // create a new random away team on a new session
                     return Scaffold._createAwayTeam(iron);
+                })
+                .then(() => {
+                    DOM.hideElement(DOM.loadBar);
                 });
             return;
         }

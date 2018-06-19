@@ -1,7 +1,7 @@
 module.exports = {
     'tags': ['getting-started-tutorial-test'],
     'Smoke test getting-started-tutorial': (client) => {
-        const message = require('../../app/scaffold/message');
+        const message = require('../../../app/scaffold/message');
         const page = client.page.gettingStarted();
 
         page.init();
