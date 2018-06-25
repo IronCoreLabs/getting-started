@@ -1,15 +1,30 @@
-Nightwatch/Browserstack tests:
+# Nightwatch/Browserstack tests:
 
-Create a 'dotenv.env' file at the top of the project and add
-    BROWSERSTACK_USERNAME=<username>
-    BROWSERSTACK_ACCESS_KEY=<key>
+### Getting your Browserstack info
+1. Go to [Browserstack](www.browserstack.com/) and login
+1. Click on **Account** and then choose **Settings**
+1. Under **Automate** add your **Username** and **Access Key** to a .env file (follow the directions below)
 
-Run tutorial tests:
+### Create a '.env' file at the top of the project and add
+```bash
+    BROWSERSTACK_USERNAME='<username>'
+    BROWSERSTACK_ACCESS_KEY='<key>'
+```
+
+### Run tutorial tests
+```text
 In a terminal, type 'npm run start' to start the local server.
+In another terminal run
+```
+```bash
+$ npm run testTutorial
+```
 
-To run browser stack nightwatch tests, run 'npm run testTutorial chrome,firefox,edge,ie,safari' in another terminal
-
-Run completed tests:
+### Run completed tests
+```text
 In a terminal, type 'npm run complete' to start the local server.
-
-To run browser stack nightwatch tests, run 'npm run testCompleted chrome,firefox,edge,ie,safari' in another terminal
+In another terminal run
+```
+```bash
+$ npm run testCompleted
+```

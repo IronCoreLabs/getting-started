@@ -2,6 +2,7 @@ node_modules
 npm-debug.log
 .DS_Store
 bin/*
-dotenv.env
+.env
 local.log
 tests_output/
+.vs/

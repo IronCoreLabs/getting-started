@@ -156,7 +156,7 @@ class Scaffold {
             }
 
             if(crewmemberIdsToAdd.length === 0) {
-                alertBox.show("Please select a crew member to add");
+                alertBox.show(Message.noAddMemberSelected);
             }
             else {
                 DOM.showElement(DOM.loadBar);
@@ -194,7 +194,7 @@ class Scaffold {
             const orderCipherText = DOM.orderCipherTextElement.value;
 
             if (!orderId || !orderCipherText) {
-                return alertBox.show("Please enter an order id and an order to decrypt");
+                return alertBox.show(Message.noDecryptInfo);
             }
 
             // Short circuit if decryptData has not been written yet
@@ -240,7 +240,7 @@ class Scaffold {
             const order = DOM.orderPlainTextElement.value;
             // guard
             if (!order) {
-                return alertBox.show("Please enter an order");
+                return alertBox.show(Message.noOrder);
             }
 
             // Short circuit if this hasn't been written yet
@@ -282,7 +282,7 @@ class Scaffold {
             }
 
             if(crewmemberIdsToRemove.length === 0) {
-                alertBox.show("Please select a crew member to remove");
+                alertBox.show(Message.noRemoveMemberSelected);
             }
             else {
                 DOM.showElement(DOM.loadBar);

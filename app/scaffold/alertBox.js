@@ -1,9 +1,6 @@
 import * as DOM from './DOM';
 
 export default {
-
-    timer: undefined,
-
     /**
      * Activates the alert box
      * @param {string} text
@@ -33,8 +30,9 @@ export default {
     },
 
     /**
-     * Activate both the alert box, and write a longer message to the console
-     * @param {string} message
+     * Get an object that contains the short and long (string) versions of a message
+     * The short one will shown as a alert box and the long one will be written to the console
+     * @param {object} message
      */
     showAndOutputToConsole(message) {
         this.show(message.short);
