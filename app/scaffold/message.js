@@ -1,4 +1,8 @@
 module.exports = {
+    noAddMemberSelected: 'Please select a crew member to add',
+    noDecryptInfo: 'Please enter an order id and an order to decrypt',
+    noOrder: 'Please enter an order',
+    noRemoveMemberSelected: 'Please select a crew member to remove',
     notInitialized: 'You must call engage with your implementation functions',
     noBrowserSupport: {
         short: 'Safari 11.1 has a bug that prevents this demo from working. Proceed with caution.',

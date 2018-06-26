@@ -2,3 +2,7 @@ node_modules
 npm-debug.log
 .DS_Store
 bin/*
+.env
+local.log
+tests_output/
+.vs/

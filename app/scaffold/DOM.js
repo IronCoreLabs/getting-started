@@ -20,33 +20,6 @@ export const loadBar = document.getElementById('loadbar');
 
 // Some simple DOM utilities to minimize dependencies
 
-/**
- * Activates both messages in the console and the alert box
- * @param {string} message
- */
-export function alertMessageToScreenAndConsole(message) {
-    alertBox(message.short);
-    console.log(message.long);
-}
-
-/**
- * Activates the alert box
- * @param {string} text
- * @param {number} timeout
- */
-export function alertBox(text, timeout = 5000) {
-    alertBoxElement.innerHTML = text;
-    showElement(alertBoxElement);
-
-    // Close the alert box after 'timeout' milliseconds
-
-    setTimeout(() => hideElement(alertBoxElement), timeout);
-
-    // Close the alert box on click of the element
-
-    alertBoxElement.addEventListener('click', () => hideElement(alertBoxElement));
-}
-
 export function appendOrderId(selectElement, orderId){
     // append to the orderIdToDecrypt select element
 

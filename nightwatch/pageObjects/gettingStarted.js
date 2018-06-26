@@ -28,34 +28,36 @@ const gettingStartedActions = {
     },
     expectDecryptOrder(orderId, crewMember, expectedText) {
         this.click(`${this.elements.decryptSelectMember.selector} option[value='${crewMember}']`);
+        this.waitForElementVisible(this.elements.orderIDText.selector, constants.apiCallTimeout);
         this.click(`${this.elements.decryptSelectOrder.selector} option[value='${orderId}'`);
         this.clickDecryptButton();
         this.waitForElementVisible(this.elements.decryptTable.selector, constants.apiCallTimeout);
         this.expectLog(expectedText);
     },
-    expectAddMember(crewMember, expectedText) {
+    expectAddMember(crewMember) {
         this.click(`${this.elements.addSelectMember.selector} option[value='${crewMember}']`)
         this.clickAddButton();
-        this.expect.element(this.elements.lastLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
+        this.expect.element(this.elements.entireLog.selector).text.to.contain(`"${crewMember}"`).before(constants.apiCallTimeout);
     },
     expectRemoveMember(crewMember, expectedText) {
         this.click(`${this.elements.removeSelectMemeber.selector} option[value='${crewMember}']`);
         this.click(this.elements.removeButton.selector);
-        this.expect.element(this.elements.lastLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
+        this.expect.element(this.elements.entireLog.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
     },
     expectAlert(expectedText) {
         this.waitForElementVisible(this.elements.alertBox.selector, constants.alertBoxTimeout);
-        this.assert.containsText(this.elements.alertBox.selector, expectedText);
+        this.expect.element(this.elements.alertBox.selector).text.to.contain(expectedText).before(constants.apiCallTimeout);
     },
     expectLog(expectedText) {
         this.assert.containsText(this.elements.lastLog.selector, expectedText);
     },
-    init(){
+    init() {
         this.navigate(constants.url);
         this.waitForLoad();
+        this.waitForElementNotVisible(this.elements.loadBar.selector, constants.apiCallTimeout);
     },
     encryptButtonClick(message){
-        this.clickEncryptButton(message);
+        this.clickEncryptButton();
         this.expectAlert(message);
     },
     tutorialImplementFunctionMessage(message){
@@ -76,9 +78,11 @@ const gettingStartedElements = {
     decryptSelectOrder: { selector: 'select#order-id-to-decrypt' },
     addSelectMember: { selector: 'select#from-element' },
     removeSelectMemeber: { selector: 'select#to-element' },
-    addButton: { selector: 'button#add-button' },
+    addButton: { selector: '#add-button' },
     removeButton: { selector: 'button#remove-button' },
-    lastLog: { selector: '#logger:last-child' }
+    lastLog: { selector: '#logger > span:last-child' },
+    entireLog: { selector: '#logger' },
+    loadBar: { selector: '#loadbar' }
 };
 
 module.exports = {

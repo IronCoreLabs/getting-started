@@ -1,4 +1,5 @@
 {
+
     "repository": {
         "name": "ironcore-getting-started",
         "version": "0.0.1",
@@ -6,11 +7,11 @@
     },
     "license": "MIT",
     "scripts": {
-        "lint": "eslint ./app",
-        "start": "webpack-dev-server --config webpack.config.js --colors --env.stage=tutorial",
-        "complete": "webpack-dev-server --config webpack.config.js --colors --env.stage=complete",
-        "testTutorial": "nightwatch --test nightwatch/tests/getting-started-tutorial-test.js",
-        "testComplete": "nightwatch --test nightwatch/tests/getting-started-complete-test.js"
+      "lint": "eslint ./app",
+      "start": "webpack-dev-server --config webpack.config.js --colors --env.stage=tutorial",
+      "complete": "webpack-dev-server --config webpack.config.js --colors --env.stage=complete",
+      "testTutorial": "node ./nightwatch/scripts/local.runner.js -c nightwatch/conf/tutorial.conf.js -e chrome,firefox,edge,ie,safari",
+      "testComplete": "node ./nightwatch/scripts/local.runner.js -c nightwatch/conf/complete.conf.js -e chrome,firefox,edge,ie,safari"
     },
     "dependencies": {
         "@ironcorelabs/ironweb": "1.0.5",
@@ -19,14 +20,16 @@
         "whatwg-fetch": "2.0.3"
     },
     "devDependencies": {
-        "babel-core": "^6.26.0",
-        "babel-loader": "^7.1.2",
-        "babel-preset-env": "^1.6.0",
-        "chromedriver": "^2.38.3",
-        "eslint": "^4.19.1",
-        "nightwatch": "^0.9.21",
-        "webpack": "^3.11.0",
-        "webpack-dev-server": "^2.11.1"
+      "babel-core": "^6.26.0",
+      "babel-loader": "^7.1.2",
+      "babel-preset-env": "^1.6.0",
+      "browserstack-local": "^1.3.3",
+      "chromedriver": "^2.38.3",
+      "dotenv": "^6.0.0",
+      "eslint": "^4.19.1",
+      "nightwatch": "^0.9.21",
+      "webpack": "^3.11.0",
+      "webpack-dev-server": "^2.11.1"
     },
     "babel": {},
     "prettier": {

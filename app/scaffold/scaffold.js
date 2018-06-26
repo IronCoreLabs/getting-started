@@ -4,6 +4,7 @@ import * as User from './mock-users';
 import * as DOM from './DOM';
 import model from './model';
 import Message from './message';
+import alertBox from './alertBox';
 
 class Scaffold {
     constructor() {
@@ -26,7 +27,7 @@ class Scaffold {
      */
     asUser(userId) {
         if (this.wait === null) {
-            DOM.alertBox(Message.notInitialized);
+            alertBox.show(Message.notInitialized);
             return;
         }
 
@@ -57,13 +58,13 @@ class Scaffold {
 
         model.restore();
 
-        // There is currently a bug in Safari 11.1 that causes this app to break. If a user is on Safari 11.1 display an error.
-
-        Utils.checkBrowser(DOM.alertMessageToScreenAndConsole, Message.notInitialized);
-
         // Listen
 
         this.addListeners();
+
+        // There is currently a bug in Safari 11.1 that causes this app to break. If a user is on Safari 11.1 display an error.
+
+        Utils.checkBrowser(alertBox, Message.noBrowserSupport);
 
         // Every time there is a new session, create a new away-team.
         // This allows us to provide a getting started experience without
@@ -72,8 +73,12 @@ class Scaffold {
         if (model.isNewSession) {
             this.wait = this._asUser(User.kirk)
                 .then((iron) => {
+                    DOM.showElement(DOM.loadBar);
                     // create a new random away team on a new session
                     return Scaffold._createAwayTeam(iron);
+                })
+                .then(() => {
+                    DOM.hideElement(DOM.loadBar);
                 });
             return;
         }
@@ -151,7 +156,7 @@ class Scaffold {
             }
 
             if(crewmemberIdsToAdd.length === 0) {
-                DOM.alertBox("Please select a crew member to add");
+                alertBox.show(Message.noAddMemberSelected);
             }
             else {
                 DOM.showElement(DOM.loadBar);
@@ -189,7 +194,7 @@ class Scaffold {
             const orderCipherText = DOM.orderCipherTextElement.value;
 
             if (!orderId || !orderCipherText) {
-                return DOM.alertBox("Please enter an order id and an order to decrypt");
+                return alertBox.show(Message.noDecryptInfo);
             }
 
             // Short circuit if decryptData has not been written yet
@@ -235,7 +240,7 @@ class Scaffold {
             const order = DOM.orderPlainTextElement.value;
             // guard
             if (!order) {
-                return DOM.alertBox("Please enter an order");
+                return alertBox.show(Message.noOrder);
             }
 
             // Short circuit if this hasn't been written yet
@@ -277,7 +282,7 @@ class Scaffold {
             }
 
             if(crewmemberIdsToRemove.length === 0) {
-                DOM.alertBox("Please select a crew member to remove");
+                alertBox.show(Message.noRemoveMemberSelected);
             }
             else {
                 DOM.showElement(DOM.loadBar);
