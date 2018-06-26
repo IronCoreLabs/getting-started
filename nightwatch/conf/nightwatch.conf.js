@@ -44,6 +44,12 @@ const config = {
           "browser_version": '11.0'
         }
       },
+      "edge": {
+        "desiredCapabilities": {
+          "browser": 'Edge',
+          "browser_version": '17.0',
+        }
+      },
       "iPhone7": {
         "desiredCapabilities": {
           'device': 'iPhone 7',
