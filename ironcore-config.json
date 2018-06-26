@@ -1,4 +1,5 @@
 {
-  "projectID": 2,
-  "segmentID": "ic-getting-started"
+    "projectId": 2,
+    "segmentId": "ic-getting-started",
+    "serviceKeyId": 534
 }

@@ -18,13 +18,18 @@ const privateKey = fs.readFileSync(path.join(__dirname, 'private.key'), 'utf8');
  * Generate a JWT token using the current requesting users ID, your project ID (pid) and segment ID (sid). Return
  * the generated token back to the client.
  */
-function serveJWT(req, res){
-    const {userID} = req.params;
-    if(!userID){
+function serveJWT(req, res) {
+    const {
+        userID
+    } = req.params;
+    if (!userID) {
         res.status(404).end();
-    }
-    else{
-        const token = jwt.sign({pid: ironCoreConfig.projectID, sid: ironCoreConfig.segmentID}, privateKey, {
+    } else {
+        const token = jwt.sign({
+            pid: ironCoreConfig.projectId,
+            sid: ironCoreConfig.segmentId,
+            kid: ironCoreConfig.serviceKeyId
+        }, privateKey, {
             algorithm: 'ES256',
             expiresIn: '2m',
             subject: userID,
@@ -37,9 +42,11 @@ module.exports = (env) => {
     return {
         devServer: {
             port: 3000,
-            before(app){
+            before(app) {
                 app.get('/generateJWT/:userID', serveJWT);
-                app.get('/', (req, res) => res.sendFile('index.html', {root: __dirname}));
+                app.get('/', (req, res) => res.sendFile('index.html', {
+                    root: __dirname
+                }));
             },
         },
         entry: [
@@ -58,7 +65,9 @@ module.exports = (env) => {
         module: {
             rules: [{
                 test: /\.js$/,
-                use: [{loader: "babel-loader"}],
+                use: [{
+                    loader: "babel-loader"
+                }],
                 exclude: /node_modules/
             }]
         },
