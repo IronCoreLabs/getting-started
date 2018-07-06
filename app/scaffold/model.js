@@ -75,7 +75,11 @@ class Model {
     }
 
     findOrder(id) {
-        return this.orders.find((order) => order.id === id);
+        for (const index in this.orders) {
+            if (this.orders[index].id == id) {
+                return this.orders[index];
+            }
+        }
     }
 
     removeAwayTeamMembers(ids) {

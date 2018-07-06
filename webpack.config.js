@@ -51,7 +51,8 @@ module.exports = (env) => {
         },
         entry: [
             'whatwg-fetch',
-            `./app/${env.stage}/get-started-by-writing-me.js`,
+            "babel-polyfill",
+            `./app/${env.stage}/get-started-by-writing-me.js`
         ],
         output: {
             publicPath: 'http://localhost:3000/static/dist/',
