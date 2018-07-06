@@ -66,7 +66,10 @@ module.exports = (env) => {
             rules: [{
                 test: /\.js$/,
                 use: [{
-                    loader: "babel-loader"
+                    loader: "babel-loader",
+                    options: {
+                        presets: ['env'],
+                    },
                 }],
                 exclude: /node_modules/
             }]

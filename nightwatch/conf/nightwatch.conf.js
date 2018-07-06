@@ -29,7 +29,7 @@ const config = {
       "firefox": {
         "desiredCapabilities": {
           "browser": "firefox",
-          "browser_version": '59.0'
+          "browser_version": '60.0'
         }
       },
       "safari": {
@@ -48,27 +48,6 @@ const config = {
         "desiredCapabilities": {
           "browser": 'Edge',
           "browser_version": '17.0',
-        }
-      },
-      "iPhone7": {
-        "desiredCapabilities": {
-          'device': 'iPhone 7',
-          'realMobile': 'true',
-          'os_version': '10.3'
-        }
-      },
-      "galaxyS8": {
-        "desiredCapabilities": {
-          'device': 'Samsung Galaxy S8',
-          'realMobile': 'true',
-          'os_version': '7.0'
-        }
-      },
-      "pixel": {
-        "desiredCapabilities": {
-          'device': 'Google Pixel',
-          'realMobile': 'true',
-          'os_version': '7.1'
         }
       }
     }
