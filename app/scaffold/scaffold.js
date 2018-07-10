@@ -133,7 +133,9 @@ class Scaffold {
      * Create a random group to represent the away-team
      */
     static _createAwayTeam() {
-        return IRON.group.create({groupName: 'away-team'})
+        return IRON.group.create({
+                groupName: 'away-team'
+            })
             .then((group) => {
                 model.setAwayTeamGroupId(group.groupID);
                 console.log("Away team group created", group);
@@ -151,14 +153,13 @@ class Scaffold {
 
             // if add has been implemented, reflect changes in model and view
             const addMembersPromise = this.addAwayTeamMembersFn(crewmemberIdsToAdd);
-            if(!addMembersPromise){
+            if (!addMembersPromise) {
                 return;
             }
 
-            if(crewmemberIdsToAdd.length === 0) {
+            if (crewmemberIdsToAdd.length === 0) {
                 alertBox.show(Message.noAddMemberSelected);
-            }
-            else {
+            } else {
                 DOM.showElement(DOM.loadBar);
             }
 
@@ -218,12 +219,13 @@ class Scaffold {
                     console.log(`Error decrypting '${orderId}'`, error);
                     // add the error message to the table
 
-                    let { message } = error;
+                    let {
+                        message
+                    } = error;
 
-                    if (error.code === 301){
+                    if (error.code === 301) {
                         message = 'Crew member not authorized';
-                    }
-                    else if (error.code === 0){
+                    } else if (error.code === 0) {
                         message = 'Red alert, message has been tampered with';
                     }
                     const row = DOM.appendDecryptedOrder(orderId, message);
@@ -268,7 +270,7 @@ class Scaffold {
         // Populate the ciphertext input on order selection
         DOM.orderIdToDecryptSelect.addEventListener('change', () => {
             const order = model.findOrder(DOM.orderIdToDecryptSelect.value);
-            DOM.orderCipherTextElement.value = order ? order.cipherText : "";
+            DOM.orderCipherTextElement.value = order ? order : "";
         });
 
         // Call remove implementation and handle ux
@@ -277,14 +279,13 @@ class Scaffold {
 
             // if remove has been implemented, reflect changes in model and view
             const removeMembersPromise = this.removeAwayTeamMembersFn(crewmemberIdsToRemove);
-            if(!removeMembersPromise){
+            if (!removeMembersPromise) {
                 return;
             }
 
-            if(crewmemberIdsToRemove.length === 0) {
+            if (crewmemberIdsToRemove.length === 0) {
                 alertBox.show(Message.noRemoveMemberSelected);
-            }
-            else {
+            } else {
                 DOM.showElement(DOM.loadBar);
             }
 
