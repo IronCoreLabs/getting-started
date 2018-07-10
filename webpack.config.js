@@ -51,7 +51,8 @@ module.exports = (env) => {
         },
         entry: [
             'whatwg-fetch',
-            `./app/${env.stage}/get-started-by-writing-me.js`,
+            "babel-polyfill",
+            `./app/${env.stage}/get-started-by-writing-me.js`
         ],
         output: {
             publicPath: 'http://localhost:3000/static/dist/',
@@ -66,7 +67,10 @@ module.exports = (env) => {
             rules: [{
                 test: /\.js$/,
                 use: [{
-                    loader: "babel-loader"
+                    loader: "babel-loader",
+                    options: {
+                        presets: ['env'],
+                    },
                 }],
                 exclude: /node_modules/
             }]

@@ -1,3 +1,4 @@
+import utils from '../scaffold/utils';
 /**
  * As you build each step of the tutorial your browser will refresh,
  * clearing any input data you've provided.  Which turns out to be
@@ -7,7 +8,7 @@
  * your input.
  *
  * Closing your browser tab and re-opening it will start a new session.
-*/
+ */
 
 const awayTeamGroupIdKey = 'awayTeamGroupId';
 const awayTeamMembersIdKey = 'awayTeamMembersIdKey';
@@ -45,8 +46,7 @@ function hasLocalStorage() {
 
         // okay, let's clean up if we got here.
         localStorage.removeItem('Storage-Test');
-    }
-    catch (_error) {
+    } catch (_error) {
         // in case of an error, like Safari's Private Mode, return false
         return false;
     }
@@ -70,12 +70,17 @@ class Model {
     }
 
     appendOrder(id, cipherText) {
-        this.orders.push({id, cipherText});
+        this.orders.push({
+            id,
+            cipherText
+        });
         this.setObject(ordersKey, this.orders);
     }
 
     findOrder(id) {
-        return this.orders.find((order) => order.id === id);
+        return this.orders.map((order) => {
+            return order.id === id ? order.cipherText : "";
+        }).filter((element) => element.length > 0)[0];
     }
 
     removeAwayTeamMembers(ids) {
@@ -117,8 +122,7 @@ class Model {
     static getObject(key) {
         try {
             return JSON.parse(sessionStorage.getItem(key));
-        }
-        catch (e) {
+        } catch (e) {
             console.log('Expected session storage to return a JSON object', e);
         }
     }
