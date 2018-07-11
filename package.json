@@ -9,8 +9,8 @@
         "lint": "eslint ./app",
         "start": "webpack-dev-server --config webpack.config.js --colors --env.stage=tutorial",
         "complete": "webpack-dev-server --config webpack.config.js --colors --env.stage=complete",
-        "testTutorial": "node ./nightwatch/scripts/local.runner.js -c nightwatch/conf/tutorial.conf.js -e chrome,firefox,edge,ie,safari",
-        "testComplete": "node ./nightwatch/scripts/local.runner.js -c nightwatch/conf/complete.conf.js -e chrome,firefox,edge,ie,safari"
+        "testTutorial": "node ./nightwatch/scripts/local.runner.js -c nightwatch/conf/tutorial.conf.js -e chrome,firefox,edge,ie,safari,galaxyS9,iPhoneX",
+        "testComplete": "node ./nightwatch/scripts/local.runner.js -c nightwatch/conf/complete.conf.js -e chrome,firefox,edge,ie,safari,galaxyS9,iPhoneX"
     },
     "dependencies": {
         "@ironcorelabs/ironweb": "1.0.5",

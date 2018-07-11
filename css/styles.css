@@ -358,8 +358,10 @@ tbody>td>.ordered-id {
     section {
         bottom: 130px;
         height: calc(100vh - 260px);
+        margin-top: 50px;
         overflow-x: hidden;
         padding-bottom: 60px;
+        top: 0;
         width: 94%;
     }
     pre {
@@ -390,6 +392,7 @@ tbody>td>.ordered-id {
 }
 
 @media screen and (max-width: 600px) {
+
     article {
         padding: 40px 0;
     }

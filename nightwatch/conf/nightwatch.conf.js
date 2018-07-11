@@ -49,7 +49,23 @@ const config = {
           "browser": 'Edge',
           "browser_version": '17.0',
         }
-      }
+      },
+      // NOTE: iOS only has safari for automated testing (localhost for some reason does not connect)
+      "iPhoneX": {
+        "desiredCapabilities": {
+          'device': 'iPhone X',
+          'realMobile': 'true',
+            'os_version': '11.0'
+          }
+        },
+        // NOTE: Android only has chrome for automated testing
+        "galaxyS9": {
+          "desiredCapabilities": {
+            'device': 'Samsung Galaxy S9',
+            'realMobile': 'true',
+            'os_version': '8.0'
+          }
+        },
     }
   },
 

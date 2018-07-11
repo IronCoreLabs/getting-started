@@ -12,7 +12,6 @@ module.exports = {
         // Entering 'Set phasers to stun', clicking encrypt, and checking that the Encrypt table and log message appears
 
         Page.encryptMessage('Set phasers to stun');
-        Page.expectLog(`Encrypting plaintext 'Set phasers to stun'`);
         Page.expectEncryptTable();
 
         // Decryption Tests
