@@ -49,6 +49,7 @@ module.exports = (env) => {
                 }));
             },
         },
+        mode: "development",
         entry: [
             'whatwg-fetch',
             "babel-polyfill",
