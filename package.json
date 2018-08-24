@@ -13,7 +13,7 @@
         "testComplete": "node ./nightwatch/scripts/local.runner.js -c nightwatch/conf/complete.conf.js -e chrome,firefox,edge,ie,safari,galaxyS9,iPhoneX"
     },
     "dependencies": {
-        "@ironcorelabs/ironweb": "1.0.5",
+        "@ironcorelabs/ironweb": "1.0.11",
         "babel-polyfill": "^6.26.0",
         "es6-promise": "4.2.4",
         "jsonwebtoken": "8.3.0",
