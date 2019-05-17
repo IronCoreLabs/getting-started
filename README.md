@@ -23,3 +23,6 @@ npm start
 ```
 
 Your project by default runs on [localhost:3000](http://localhost:3000/).
+
+Copyright (c)  2018-present  IronCore Labs, Inc.
+All rights reserved.
