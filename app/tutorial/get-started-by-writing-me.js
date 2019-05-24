@@ -1,10 +1,10 @@
-import * as IRON from '@ironcorelabs/ironweb';
-import * as User from 'scaffold/mock-users';
-import Scaffold from 'scaffold/scaffold';
-import model from 'scaffold/model';
-import message from 'scaffold/message';
-import * as DOM from 'scaffold/DOM';
-import alertBox from '../scaffold/alertBox';
+import * as IRON from "@ironcorelabs/ironweb";
+import * as User from "scaffold/mock-users";
+import Scaffold from "scaffold/scaffold";
+import model from "scaffold/model";
+import message from "scaffold/message";
+import * as DOM from "scaffold/DOM";
+import alertBox from "../scaffold/alertBox";
 
 // These are the functions of the Starship Enterprise
 

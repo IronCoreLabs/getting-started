@@ -1,7 +1,7 @@
-import * as IRON from '@ironcorelabs/ironweb';
-import * as User from 'scaffold/mock-users';
-import Scaffold from 'scaffold/scaffold';
-import model from 'scaffold/model';
+import * as IRON from "@ironcorelabs/ironweb";
+import * as User from "scaffold/mock-users";
+import Scaffold from "scaffold/scaffold";
+import model from "scaffold/model";
 
 // These are the functions of the Starship Enterprise
 
@@ -18,10 +18,12 @@ function encryptData(plaintext) {
         // away-team.
         const options = {
             accessList: {
-                groups: [{
-                    id: model.awayTeamGroupId
-                }]
-            }
+                groups: [
+                    {
+                        id: model.awayTeamGroupId,
+                    },
+                ],
+            },
         };
         return IRON.document.encrypt(IRON.codec.utf8.toBytes(plaintext), options);
     });
@@ -39,7 +41,7 @@ function decryptData(crewmemberID, documentID, ciphertext) {
     return Scaffold.asUser(crewmemberID).then(() => {
         // Transform encrypted data from the away-team to the crewmember,
         // then decrypt data locally
-        return IRON.document.decrypt(documentID, ciphertext);
+        return IRON.document.decrypt(documentID, IRON.codec.base64.toBytes(ciphertext));
     });
 }
 
@@ -57,7 +59,7 @@ function addAwayTeamMembers(crewmemberIds) {
         return IRON.group.addMembers(model.awayTeamGroupId, crewmemberIds).then((response) => {
             console.log("Crewmembers added to group 'away-team'", response);
             return response;
-        })
+        });
     });
 }
 
@@ -75,7 +77,7 @@ function removeAwayTeamMembers(crewmemberIds) {
         return IRON.group.removeMembers(model.awayTeamGroupId, crewmemberIds).then((response) => {
             console.log("Crewmembers removed from group 'away-team'", response);
             return response;
-        })
+        });
     });
 }
 

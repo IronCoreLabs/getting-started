@@ -1,4 +1,4 @@
-import utils from '../scaffold/utils';
+import utils from "../scaffold/utils";
 /**
  * As you build each step of the tutorial your browser will refresh,
  * clearing any input data you've provided.  Which turns out to be
@@ -10,10 +10,10 @@ import utils from '../scaffold/utils';
  * Closing your browser tab and re-opening it will start a new session.
  */
 
-const awayTeamGroupIdKey = 'awayTeamGroupId';
-const awayTeamMembersIdKey = 'awayTeamMembersIdKey';
-const currentUserIdKey = 'currentUserId';
-const ordersKey = 'orders';
+const awayTeamGroupIdKey = "awayTeamGroupId";
+const awayTeamMembersIdKey = "awayTeamMembersIdKey";
+const currentUserIdKey = "currentUserId";
+const ordersKey = "orders";
 
 /**
  * # hasLocalStorage()
@@ -30,22 +30,22 @@ function hasLocalStorage() {
     try {
         // we've to put this in here. I've seen Firefox throwing `Security error: 1000`
         // when cookies have been disabled
-        if (typeof localStorage === 'undefined') {
+        if (typeof localStorage === "undefined") {
             return false;
         }
 
         // Just because localStorage exists does not mean it works. In particular
         // it might be disabled as it is when Safari's private browsing mode is
         // active.
-        localStorage.setItem('Storage-Test', '1');
+        localStorage.setItem("Storage-Test", "1");
 
         // that should not happen ...
-        if (localStorage.getItem('Storage-Test') !== '1') {
+        if (localStorage.getItem("Storage-Test") !== "1") {
             return false;
         }
 
         // okay, let's clean up if we got here.
-        localStorage.removeItem('Storage-Test');
+        localStorage.removeItem("Storage-Test");
     } catch (_error) {
         // in case of an error, like Safari's Private Mode, return false
         return false;
@@ -69,18 +69,20 @@ class Model {
         this.setObject(awayTeamMembersIdKey, this.awayTeamMemberIds);
     }
 
-    appendOrder(id, cipherText) {
+    appendOrder(id, bytes) {
         this.orders.push({
             id,
-            cipherText
+            bytes,
         });
         this.setObject(ordersKey, this.orders);
     }
 
     findOrder(id) {
-        return this.orders.map((order) => {
-            return order.id === id ? order.cipherText : "";
-        }).filter((element) => element.length > 0)[0];
+        return this.orders
+            .map((order) => {
+                return order.id === id ? order.bytes : "";
+            })
+            .filter((element) => element.length > 0)[0];
     }
 
     removeAwayTeamMembers(ids) {
@@ -123,7 +125,7 @@ class Model {
         try {
             return JSON.parse(sessionStorage.getItem(key));
         } catch (e) {
-            console.log('Expected session storage to return a JSON object', e);
+            console.log("Expected session storage to return a JSON object", e);
         }
     }
 

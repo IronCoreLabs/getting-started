@@ -1,15 +1,15 @@
 module.exports = {
-    noAddMemberSelected: 'Please select a crew member to add',
-    noDecryptInfo: 'Please enter an order id and an order to decrypt',
-    noOrder: 'Please enter an order',
-    noRemoveMemberSelected: 'Please select a crew member to remove',
-    notInitialized: 'You must call engage with your implementation functions',
+    noAddMemberSelected: "Please select a crew member to add",
+    noDecryptInfo: "Please enter an order id and an order to decrypt",
+    noOrder: "Please enter an order",
+    noRemoveMemberSelected: "Please select a crew member to remove",
+    notInitialized: "You must call engage with your implementation functions",
     noBrowserSupport: {
-        short: 'Safari 11.1 has a bug that prevents this demo from working. Proceed with caution.',
-        long: 'Version 11.1 of Safari currently contains a bug which will prevent this demo from working. Proceed with caution.'
+        short: "Safari 11.1 has a bug that prevents this demo from working. Proceed with caution.",
+        long: "Version 11.1 of Safari currently contains a bug which will prevent this demo from working. Proceed with caution.",
     },
     stepOneTodo: {
-        short: 'WRITE ME: Copy and paste encryptData into app/get-started-by-writing-me.js',
+        short: "WRITE ME: Copy and paste encryptData into app/get-started-by-writing-me.js",
         long: `WRITE ME: Copy and paste encryptData into app/get-started-by-writing-me.js:
 
 function encryptData(plaintext) {
@@ -27,10 +27,10 @@ function encryptData(plaintext) {
         };
         return IRON.document.encrypt(IRON.codec.utf8.toBytes(plaintext), options);
     });
-}`
+}`,
     },
     stepTwoTodo: {
-        short: 'WRITE ME: Copy and paste decryptData into app/get-started-by-writing-me.js',
+        short: "WRITE ME: Copy and paste decryptData into app/get-started-by-writing-me.js",
         long: `WRITE ME: Copy and paste decryptData into app/get-started-by-writing-me.js
 
 function decryptData(crewmemberID, documentID, ciphertext) {
@@ -38,12 +38,12 @@ function decryptData(crewmemberID, documentID, ciphertext) {
     return Scaffold.asUser(crewmemberID).then((iron) => {
         // Transform encrypted data from the away-team to the crewmember,
         // then decrypt data locally
-        return IRON.document.decrypt(documentID, ciphertext);
+        return IRON.document.decrypt(documentID, IRON.codec.base64.toBytes(ciphertext));
     });
-}`
+}`,
     },
     stepThreeTodo: {
-        short: 'WRITE ME: Copy and paste addAwayTeamMembers into app/get-started-by-writing-me.js',
+        short: "WRITE ME: Copy and paste addAwayTeamMembers into app/get-started-by-writing-me.js",
         long: `WRITE ME: Copy and paste addAwayTeamMembers into app/get-started-by-writing-me.js
 
 function addAwayTeamMembers(crewmemberIds) {
@@ -59,10 +59,10 @@ function addAwayTeamMembers(crewmemberIds) {
                     return response;
                 })
         });
-}`
+}`,
     },
     stepFourTodo: {
-        short: 'WRITE ME: Copy and paste removeAwayTeamMembers into app/get-started-by-writing-me.js',
+        short: "WRITE ME: Copy and paste removeAwayTeamMembers into app/get-started-by-writing-me.js",
         long: `WRITE ME: Copy and paste removeAwayTeamMembers into app/get-started-by-writing-me.js
 
 function removeAwayTeamMembers(crewmemberIds) {
@@ -78,6 +78,6 @@ function removeAwayTeamMembers(crewmemberIds) {
                     return response;
                 })
         });
-}`
-    }
+}`,
+    },
 };
