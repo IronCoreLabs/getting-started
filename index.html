@@ -1,117 +1,110 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,700" rel="stylesheet" type="text/css" />
+        <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-    <link href="css/styles.css" rel="stylesheet" type="text/css">
-</head>
+    <body>
+        <nav>
+            <img src="./css/assets/logo.svg" alt="ironcore-logo" height="60" width="60" />
+            <h1>IronCore Get Started</h1>
+        </nav>
+        <main>
+            <section>
+                <div id="alert-box"></div>
 
-<body>
-    <nav>
-        <img src="./css/assets/logo.svg" alt="ironcore-logo" height="60" width="60">
-        <h1>IronCore Get Started</h1>
-    </nav>
-    <main>
-        <section>
-            <div id="alert-box"></div>
+                <!-- Order Encryption -->
 
-            <!-- Order Encryption -->
-
-            <article>
-
-                <div class="input-container">
-                    <img src="./css/assets/kirk.jpg" alt="kirk-headshot" height="110" width="110">
-                    <div class="encrypt-order-input">
-                        <h2>Kirk, encrypt your order:</h2>
-                        <div class="form">
-                            <div class="encrypt-order">
-                                <input type="text" id="order" placeholder="Enter your order..." autofocus/>
-                                <button id="encrypt-button">Encrypt</button>
+                <article>
+                    <div class="input-container">
+                        <img src="./css/assets/kirk.jpg" alt="kirk-headshot" height="110" width="110" />
+                        <div class="encrypt-order-input">
+                            <h2>Kirk, encrypt your order:</h2>
+                            <div class="form">
+                                <div class="encrypt-order">
+                                    <input type="text" id="order" placeholder="Enter your order..." autofocus />
+                                    <button id="encrypt-button">Encrypt</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="encrypted-orders-container" class="table-container">
-                    <h3>Your encrypted orders:</h3>
-                    <table id="encrypted-orders">
-                        <thead>
-                            <th>Order Id</th>
-                            <th>Encrypted Order</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </article>
-
-            <!-- Away Team Selection -->
-
-            <article>
-                <h2>Kirk, select your away team:</h2>
-                <div class="away-team-select">
-                    <div>
-                        <h3>Crew:</h3>
-                        <select multiple="multiple" size="6" id="from-element">
-                            <option value="spock">Spock</option>
-                            <option value="mccoy">McCoy</option>
-                            <option value="scotty">Scotty</option>
-                            <option value="sulu">Sulu</option>
-                            <option value="chekov">Chekov</option>
-                            <option value="redshirt">Red Shirt</option>
-                        </select>
-                        <button id="add-button">Add</button>
+                    <div id="encrypted-orders-container" class="table-container">
+                        <h3>Your encrypted orders:</h3>
+                        <table id="encrypted-orders">
+                            <thead>
+                                <th>Order Id</th>
+                                <th>Encrypted Order</th>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
-                    <div>
-                        <h3>Away team:</h3>
-                        <select multiple="multiple" size="6" id="to-element">
-                        </select>
-                        <button id="remove-button">Remove</button>
+                </article>
+
+                <!-- Away Team Selection -->
+
+                <article>
+                    <h2>Kirk, select your away team:</h2>
+                    <div class="away-team-select">
+                        <div>
+                            <h3>Crew:</h3>
+                            <select multiple="multiple" size="6" id="from-element">
+                                <option value="spock">Spock</option>
+                                <option value="mccoy">McCoy</option>
+                                <option value="scotty">Scotty</option>
+                                <option value="sulu">Sulu</option>
+                                <option value="chekov">Chekov</option>
+                                <option value="redshirt">Red Shirt</option>
+                            </select>
+                            <button id="add-button">Add</button>
+                        </div>
+                        <div>
+                            <h3>Away team:</h3>
+                            <select multiple="multiple" size="6" id="to-element"> </select>
+                            <button id="remove-button">Remove</button>
+                        </div>
                     </div>
-                </div>
-            </article>
+                </article>
 
-            <!-- Order Decryption -->
+                <!-- Order Decryption -->
 
-            <article>
-                <div class="input-container-decrypt">
-                    <img src="./css/assets/kirk.jpg" alt="crew-member-headshot" height="110" width="110" id="crew-member-headshot">
-                    <div class="decrypt-order-input">
-                        <h2>Decrypt your order as:</h2>
-                        <select id="crew-member">
-                            <option value="kirk" selected>Kirk</option>
-                            <option value="spock">Spock</option>
-                            <option value="mccoy">McCoy</option>
-                            <option value="scotty">Scotty</option>
-                            <option value="sulu">Sulu</option>
-                            <option value="chekov">Chekov</option>
-                            <option value="redshirt">Red Shirt</option>
-                        </select>
+                <article>
+                    <div class="input-container-decrypt">
+                        <img src="./css/assets/kirk.jpg" alt="crew-member-headshot" height="110" width="110" id="crew-member-headshot" />
+                        <div class="decrypt-order-input">
+                            <h2>Decrypt your order as:</h2>
+                            <select id="crew-member">
+                                <option value="kirk" selected>Kirk</option>
+                                <option value="spock">Spock</option>
+                                <option value="mccoy">McCoy</option>
+                                <option value="scotty">Scotty</option>
+                                <option value="sulu">Sulu</option>
+                                <option value="chekov">Chekov</option>
+                                <option value="redshirt">Red Shirt</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <select id="order-id-to-decrypt">
-                    <option value="">Choose your order to decrypt...</option>
-                </select>
-                <input type="text" id="order-ciphertext" placeholder="Your encrypted order" />
-                <button id="decrypt-button">Decrypt</button>
-                <div id="decrypted-orders-container" class="decrypted-orders table-container">
-                    <h3>Your decrypted orders:</h3>
-                    <table id="decrypted-orders">
-                        <thead>
-                            <th>Order Id</th>
-                            <th>Decrypted Order</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </article>
-
-        </section>
-        <pre id="logger"></pre>
-        <div id="loadbar"></div>
-    </main>
-    <script src="/static/dist/main.js"></script>
-</body>
-
+                    <select id="order-id-to-decrypt">
+                        <option value="">Choose your order to decrypt...</option>
+                    </select>
+                    <input type="text" id="order-ciphertext" placeholder="Your encrypted order" />
+                    <button id="decrypt-button">Decrypt</button>
+                    <div id="decrypted-orders-container" class="decrypted-orders table-container">
+                        <h3>Your decrypted orders:</h3>
+                        <table id="decrypted-orders">
+                            <thead>
+                                <th>Order Id</th>
+                                <th>Decrypted Order</th>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+            <pre id="logger"></pre>
+            <div id="loadbar"></div>
+        </main>
+        <script src="/static/dist/main.js"></script>
+    </body>
 </html>

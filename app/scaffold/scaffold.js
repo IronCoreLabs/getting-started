@@ -1,10 +1,10 @@
-import * as IRON from '@ironcorelabs/ironweb';
-import * as Utils from './utils';
-import * as User from './mock-users';
-import * as DOM from './DOM';
-import model from './model';
-import Message from './message';
-import alertBox from './alertBox';
+import * as IRON from "@ironcorelabs/ironweb";
+import * as Utils from "./utils";
+import * as User from "./mock-users";
+import * as DOM from "./DOM";
+import model from "./model";
+import Message from "./message";
+import alertBox from "./alertBox";
 
 class Scaffold {
     constructor() {
@@ -90,9 +90,8 @@ class Scaffold {
         DOM.selectByValue(DOM.crewmemberElement, model.currentUserId);
         DOM.loggedInUserHeadshot.src = `../../css/assets/${model.currentUserId}.jpg`;
 
-        model.orders.forEach((order) => DOM.appendEncryptedOrder(order.id, order.cipherText));
-        DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement,
-            (o) => model.awayTeamMemberIds.some((id) => id === o.value));
+        model.orders.forEach((order) => DOM.appendEncryptedOrder(order.id, order.bytes));
+        DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement, (o) => model.awayTeamMemberIds.some((id) => id === o.value));
 
         // And restore our current crewmember perspective
 
@@ -120,21 +119,21 @@ class Scaffold {
         // This is not a secure approach, but it's useful for tutorial purposes.
         // In a later tutorial, we'll explain what we just said and why, and
         // we'll show you the proper way to do it.
-        return IRON.initialize(() => Utils.requestJWT(userId), Utils.getUserPasscode)
-            .then(() => {
-                console.log(`As user id ${userId}`);
-                DOM.hideElement(DOM.loadBar);
-                this.currentUserId = userId;
-                model.setCurrentUserId(userId);
-            });
+        return IRON.initialize(() => Utils.requestJWT(userId), Utils.getUserPasscode).then(() => {
+            console.log(`As user id ${userId}`);
+            DOM.hideElement(DOM.loadBar);
+            this.currentUserId = userId;
+            model.setCurrentUserId(userId);
+        });
     }
 
     /**
      * Create a random group to represent the away-team
      */
     static _createAwayTeam() {
-        return IRON.group.create({
-                groupName: 'away-team'
+        return IRON.group
+            .create({
+                groupName: "away-team",
             })
             .then((group) => {
                 model.setAwayTeamGroupId(group.groupID);
@@ -148,7 +147,7 @@ class Scaffold {
      */
     addListeners() {
         // Call the add implementation and handle ux
-        DOM.addButton.addEventListener('click', () => {
+        DOM.addButton.addEventListener("click", () => {
             const crewmemberIdsToAdd = DOM.getSelectedValues(DOM.fromElement);
 
             // if add has been implemented, reflect changes in model and view
@@ -180,16 +179,16 @@ class Scaffold {
         });
 
         // Switch users
-        DOM.crewmemberElement.addEventListener('change', () => {
+        DOM.crewmemberElement.addEventListener("change", () => {
             // Erase the decrypted orders on a change in user
-            DOM.orderListElement.innerHTML = '';
+            DOM.orderListElement.innerHTML = "";
             DOM.loggedInUserHeadshot.src = `../../css/assets/${DOM.crewmemberElement.value}.jpg`;
             DOM.hideElement(DOM.decryptedOrdersContainer);
             this.asUser(DOM.crewmemberElement.value);
         });
 
         // Call the decrypt function and handle ux
-        DOM.decryptButton.addEventListener('click', () => {
+        DOM.decryptButton.addEventListener("click", () => {
             const crewmemberID = DOM.crewmemberElement.value;
             const orderId = DOM.orderIdToDecryptSelect.value;
             const orderCipherText = DOM.orderCipherTextElement.value;
@@ -219,26 +218,24 @@ class Scaffold {
                     console.log(`Error decrypting '${orderId}'`, error);
                     // add the error message to the table
 
-                    let {
-                        message
-                    } = error;
+                    let {message} = error;
 
                     if (error.code === 301) {
-                        message = 'Crew member not authorized';
+                        message = "Crew member not authorized";
                     } else if (error.code === 0) {
-                        message = 'Red alert, message has been tampered with';
+                        message = "Red alert, message has been tampered with";
                     }
                     const row = DOM.appendDecryptedOrder(orderId, message);
                     DOM.scrollIntoViewIfNeeded(row);
                 });
 
             // clear the input
-            DOM.orderIdToDecryptSelect.value = '';
-            DOM.orderCipherTextElement.value = '';
+            DOM.orderIdToDecryptSelect.value = "";
+            DOM.orderCipherTextElement.value = "";
         });
 
         // Call the encrypt implementation and handle ux
-        DOM.encryptButton.addEventListener('click', () => {
+        DOM.encryptButton.addEventListener("click", () => {
             const order = DOM.orderPlainTextElement.value;
             // guard
             if (!order) {
@@ -254,7 +251,7 @@ class Scaffold {
             DOM.showElement(DOM.loadBar);
 
             // clear the input field
-            DOM.orderPlainTextElement.value = '';
+            DOM.orderPlainTextElement.value = "";
 
             // encrypt, adding the result to the ui asynchronously
             promise.then((encrypted) => {
@@ -268,13 +265,13 @@ class Scaffold {
         });
 
         // Populate the ciphertext input on order selection
-        DOM.orderIdToDecryptSelect.addEventListener('change', () => {
+        DOM.orderIdToDecryptSelect.addEventListener("change", () => {
             const order = model.findOrder(DOM.orderIdToDecryptSelect.value);
-            DOM.orderCipherTextElement.value = order ? order : "";
+            DOM.orderCipherTextElement.value = order ? IRON.codec.base64.fromBytes(order) : "";
         });
 
         // Call remove implementation and handle ux
-        DOM.removeButton.addEventListener('click', () => {
+        DOM.removeButton.addEventListener("click", () => {
             const crewmemberIdsToRemove = DOM.getSelectedValues(DOM.toElement);
 
             // if remove has been implemented, reflect changes in model and view

@@ -1,26 +1,28 @@
-export const addButton = document.getElementById('add-button');
-export const alertBoxElement = document.getElementById('alert-box');
-export const crewmemberElement = document.getElementById('crew-member');
-export const decryptButton = document.getElementById('decrypt-button');
-export const decryptedOrdersContainer = document.getElementById('decrypted-orders-container');
-export const decryptedOrdersTable = document.getElementById('decrypted-orders');
-export const encryptButton = document.getElementById('encrypt-button');
-export const encryptedOrdersContainer = document.getElementById('encrypted-orders-container');
-export const fromElement = document.getElementById('from-element');
+import * as IRON from "@ironcorelabs/ironweb";
+
+export const addButton = document.getElementById("add-button");
+export const alertBoxElement = document.getElementById("alert-box");
+export const crewmemberElement = document.getElementById("crew-member");
+export const decryptButton = document.getElementById("decrypt-button");
+export const decryptedOrdersContainer = document.getElementById("decrypted-orders-container");
+export const decryptedOrdersTable = document.getElementById("decrypted-orders");
+export const encryptButton = document.getElementById("encrypt-button");
+export const encryptedOrdersContainer = document.getElementById("encrypted-orders-container");
+export const fromElement = document.getElementById("from-element");
 export const orderCipherTextElement = document.getElementById("order-ciphertext");
 export const orderIdToDecryptSelect = document.getElementById("order-id-to-decrypt");
 export const orderListElement = document.getElementById("decrypted-orders");
 export const orderPlainTextElement = document.getElementById("order");
-export const removeButton = document.getElementById('remove-button');
-export const toElement = document.getElementById('to-element');
-export const encryptedOrdersTable = document.getElementById('encrypted-orders');
-export const loggerElement = document.getElementById('logger');
-export const loggedInUserHeadshot = document.getElementById('crew-member-headshot');
-export const loadBar = document.getElementById('loadbar');
+export const removeButton = document.getElementById("remove-button");
+export const toElement = document.getElementById("to-element");
+export const encryptedOrdersTable = document.getElementById("encrypted-orders");
+export const loggerElement = document.getElementById("logger");
+export const loggedInUserHeadshot = document.getElementById("crew-member-headshot");
+export const loadBar = document.getElementById("loadbar");
 
 // Some simple DOM utilities to minimize dependencies
 
-export function appendOrderId(selectElement, orderId){
+export function appendOrderId(selectElement, orderId) {
     // append to the orderIdToDecrypt select element
 
     const option = document.createElement("option");
@@ -39,7 +41,7 @@ export function appendOrderId(selectElement, orderId){
  */
 export function appendOrder(ordersTable, id, text) {
     // add document ID and text as cells
-    const row = buildRow(2, '', ['orderId', 'orderText']);
+    const row = buildRow(2, "", ["orderId", "orderText"]);
     row.cells[0].appendChild(document.createTextNode(id));
     row.cells[1].appendChild(document.createTextNode(text));
     // append the row to the encrypted orders table
@@ -54,9 +56,9 @@ export function appendOrder(ordersTable, id, text) {
  * @param {*} rowClassName optional tr class name
  * @param {*} cellClassName optional td class name
  */
-export function buildRow(n, rowClassName, cellClassNames){
+export function buildRow(n, rowClassName, cellClassNames) {
     const classNames = cellClassNames || [];
-    const row = document.createElement('tr');
+    const row = document.createElement("tr");
     if (rowClassName) {
         row.setAttribute("class", rowClassName);
     }
@@ -74,7 +76,7 @@ export function buildRow(n, rowClassName, cellClassNames){
  * @param {*} className optional li class name
  */
 export function buildListItem(className) {
-    const li = document.createElement('li');
+    const li = document.createElement("li");
     if (className) {
         li.setAttribute("class", "decryptedOrder");
     }
@@ -87,7 +89,7 @@ export function buildListItem(className) {
  * @param {*} className optional td class name
  */
 function buildTableCell(className) {
-    const td = document.createElement('td');
+    const td = document.createElement("td");
     if (className) {
         td.setAttribute("class", className);
     }
@@ -113,7 +115,7 @@ export function configureClickOnEnter(textbox, button) {
  * then chains to original
  *
  * @param {*} logger DOM element to receive log output
-*/
+ */
 export function configurePageLogger(logger) {
     if (!logger) {
         return;
@@ -125,24 +127,21 @@ export function configurePageLogger(logger) {
             return "[...]";
         }
         return y;
-    }
+    };
 
     console.old = console.log;
-    console.log = function (...args) {
-        let output = "", arg, i;
+    console.log = function(...args) {
+        let output = "",
+            arg,
+            i;
 
         for (i = 0; i < args.length; i++) {
             arg = args[i];
             output += `<span class="log-${typeof arg}">`;
 
-            if (
-                typeof arg === "object" &&
-                typeof JSON === "object" &&
-                typeof JSON.stringify === "function"
-            ) {
+            if (typeof arg === "object" && typeof JSON === "object" && typeof JSON.stringify === "function") {
                 output += JSON.stringify(arg, replacer, 4);
-            }
-            else {
+            } else {
                 output += arg;
             }
 
@@ -171,8 +170,8 @@ export function getSelectedValues(select) {
  *
  * @param {*} element
  */
-export function hideElement(element){
-    element.style.display = 'none';
+export function hideElement(element) {
+    element.style.display = "none";
 }
 
 /**
@@ -255,17 +254,19 @@ export function selectByValue(select, value) {
  *
  * @param {*} element
  */
-export function showElement(element){
-    element.style.display = 'block';
+export function showElement(element) {
+    element.style.display = "block";
 }
 
 // These would be in a component view class if we weren't using vanilla js
 
-export function appendEncryptedOrder(id, text) {
-    const result = appendOrder(encryptedOrdersTable, id, text);
-    appendOrderId(orderIdToDecryptSelect, id);
-    showElement(encryptedOrdersContainer);
-    return result;
+export function appendEncryptedOrder(id, bytes) {
+    if (bytes) {
+        const result = appendOrder(encryptedOrdersTable, id, IRON.codec.base64.fromBytes(bytes));
+        appendOrderId(orderIdToDecryptSelect, id);
+        showElement(encryptedOrdersContainer);
+        return result;
+    }
 }
 
 export function appendDecryptedOrder(id, text) {
@@ -275,7 +276,7 @@ export function appendDecryptedOrder(id, text) {
 }
 
 export function clearDecryptedOrders() {
-    orderListElement.innerHTML = '';
+    orderListElement.innerHTML = "";
     hideElement(decryptedOrdersContainer);
 }
 
@@ -284,10 +285,10 @@ export function clearDecryptedOrders() {
 
 configureClickOnEnter(orderPlainTextElement, encryptButton);
 
-fromElement.addEventListener('change', () => {
+fromElement.addEventListener("change", () => {
     addButton.disabled = false;
 });
 
-toElement.addEventListener('change', () => {
+toElement.addEventListener("change", () => {
     removeButton.disabled = false;
 });
