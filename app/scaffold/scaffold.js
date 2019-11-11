@@ -1,10 +1,10 @@
 import * as IRON from "@ironcorelabs/ironweb";
-import * as Utils from "./utils";
-import * as User from "./mock-users";
-import * as DOM from "./DOM";
-import model from "./model";
-import Message from "./message";
 import alertBox from "./alertBox";
+import * as DOM from "./DOM";
+import Message from "./message";
+import * as User from "./mock-users";
+import model from "./model";
+import * as Utils from "./utils";
 
 class Scaffold {
     constructor() {

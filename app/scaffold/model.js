@@ -1,4 +1,3 @@
-import utils from "../scaffold/utils";
 /**
  * As you build each step of the tutorial your browser will refresh,
  * clearing any input data you've provided.  Which turns out to be

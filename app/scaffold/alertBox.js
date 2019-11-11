@@ -1,4 +1,4 @@
-import * as DOM from './DOM';
+import * as DOM from "./DOM";
 
 export default {
     /**
@@ -12,7 +12,7 @@ export default {
 
         // Clears the previous timeout function, if any
 
-        if(this.timer !== undefined) {
+        if (this.timer !== undefined) {
             clearTimeout(this.timer);
         }
 
@@ -22,11 +22,11 @@ export default {
 
         // Close the alert box on click of the element
 
-        DOM.alertBoxElement.addEventListener('click', () => this.hide());
+        DOM.alertBoxElement.addEventListener("click", () => this.hide());
     },
 
-    hide(){
-        DOM.hideElement(DOM.alertBoxElement)
+    hide() {
+        DOM.hideElement(DOM.alertBoxElement);
     },
 
     /**
@@ -37,6 +37,5 @@ export default {
     showAndOutputToConsole(message) {
         this.show(message.short);
         console.log(message.long);
-    }
-
+    },
 };
