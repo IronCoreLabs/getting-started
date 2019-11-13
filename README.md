@@ -2,13 +2,13 @@
 
 IronCore is an SDK and cloud service that keeps application data private and secure. Get started with IronCore to grant, monitor, and revoke access to sensitive data in minutes.
 
-For IronWeb, the IronCore SDK used in this project, please see [IronWeb SDK documentation](https://docs.ironcorelabs.com/ironweb-sdk/overview).
+For IronWeb, the IronCore SDK used in this project, please see [IronWeb SDK documentation](https://ironcorelabs.com/docs/ironweb-sdk/overview).
 
 ## Tutorial
 
 Follow the tutorial to get started:
 
-https://docs.ironcorelabs.com/getting-started/vanilla-javascript
+https://ironcorelabs.com/docs/getting-started/vanilla-javascript
 
 ## Project setup
 
