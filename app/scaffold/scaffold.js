@@ -88,7 +88,7 @@ class Scaffold {
         console.log("Session restored\n(to start a new session, close tab and reopen)");
 
         DOM.selectByValue(DOM.crewmemberElement, model.currentUserId);
-        DOM.loggedInUserHeadshot.src = `../../css/assets/${model.currentUserId}.jpg`;
+        DOM.loggedInUserHeadshot.src = `../../assets/${model.currentUserId}.jpg`;
 
         model.orders.forEach((order) => DOM.appendEncryptedOrder(order.id, order.bytes));
         DOM.moveItemsBetweenSelects(DOM.fromElement, DOM.toElement, (o) => model.awayTeamMemberIds.some((id) => id === o.value));
@@ -182,7 +182,7 @@ class Scaffold {
         DOM.crewmemberElement.addEventListener("change", () => {
             // Erase the decrypted orders on a change in user
             DOM.orderListElement.innerHTML = "";
-            DOM.loggedInUserHeadshot.src = `../../css/assets/${DOM.crewmemberElement.value}.jpg`;
+            DOM.loggedInUserHeadshot.src = `../../assets/${DOM.crewmemberElement.value}.jpg`;
             DOM.hideElement(DOM.decryptedOrdersContainer);
             this.asUser(DOM.crewmemberElement.value);
         });
