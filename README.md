@@ -4,6 +4,10 @@ IronCore is an SDK and cloud service that keeps application data private and sec
 
 For IronWeb, the IronCore SDK used in this project, please see [IronWeb SDK documentation](https://ironcorelabs.com/docs/ironweb-sdk/overview).
 
+## Requirements
+
+- NodeJS 20+
+
 ## Tutorial
 
 Follow the tutorial to get started:

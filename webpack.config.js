@@ -9,7 +9,6 @@ const ironCoreConfig = require("./ironcore-config.json");
 const webpack = require("webpack");
 const path = require("path");
 const fs = require("fs");
-const https = require("https");
 const jwt = require("jsonwebtoken");
 
 const privateKey = fs.readFileSync(path.join(__dirname, "private.key"), "utf8");
@@ -44,14 +43,22 @@ module.exports = (env) => {
     return {
         devServer: {
             port: 3000,
-            before(app) {
-                app.get("/generateJWT/:userID", serveJWT);
-                app.get("/", (req, res) =>
+            hot: true,
+            setupMiddlewares: (middlewares, devServer) => {
+                devServer.app.get("/generateJWT/:userID", serveJWT);
+                devServer.app.get("/", (req, res) =>
                     res.sendFile("index.html", {
                         root: __dirname,
                     })
                 );
+
+                return middlewares;
             },
+            static: [
+                {
+                    directory: path.join(__dirname, "css"),
+                },
+            ],
         },
         mode: "development",
         entry: ["whatwg-fetch", "babel-polyfill", `./app/${env.stage}/get-started-by-writing-me.js`],
@@ -80,6 +87,6 @@ module.exports = (env) => {
                 },
             ],
         },
-        plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin()],
+        plugins: [new webpack.NoEmitOnErrorsPlugin()],
     };
 };
